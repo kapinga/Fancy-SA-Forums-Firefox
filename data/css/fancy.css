@@ -59,7 +59,7 @@ body {
 	
 	margin: 0 auto !important;
 	
-	padding: 0 27px 15px 27px !important;
+	padding: 0 27px 3px 27px !important;
 	
 	border: 1px solid #000;
 	border-top: 0 !important;
@@ -479,4 +479,15 @@ span#bookmark_edit_attach {
 /* Ignore List */
 #usercpnav li:nth-child(9) {
     width: 95px;
+}
+
+/* Copyright */
+#copyright {
+	padding: 2em 0;
+	margin: 0;
+	color: #ACAFB1;
+}
+
+#copyright a {
+	color: #069;
 }

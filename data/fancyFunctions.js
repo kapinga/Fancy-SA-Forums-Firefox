@@ -129,6 +129,7 @@ if (typeof fancySAPage == "undefined") {
 
 			// Fix forum navbar
 			//$("ul.navigation").after("<div class='navbar_wrap'></div>");
+			// TODO: make these both be class navbar_wrap, but add an extra ID field for the top one
 			$("ul.navigation").each(function (i) {
 					if (i == 0) {
 						$(this).after("<div class='navbar_wrap_top'></div>");
@@ -150,6 +151,9 @@ if (typeof fancySAPage == "undefined") {
 				$(this).empty().append(link);
 			});
 
+			// Move the copyright outside #container
+			$("#container").after($("#copyright"));
+			
 			// Move the post author content
 			$("table#forum.threadlist tbody tr").each(function(i, el) {
 				
