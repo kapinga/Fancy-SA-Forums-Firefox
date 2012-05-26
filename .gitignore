@@ -166,4 +166,4 @@ pip-log.txt
 
 
 # Test-profile (I don't want to share my SA login cookie, etc.
-test-profile/**/*
+test-profile/
