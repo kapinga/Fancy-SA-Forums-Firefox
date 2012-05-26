@@ -96,13 +96,21 @@ Navigation Bar
     background-image:none;
 }
 
-.navbar_wrap {
+.navbar_wrap, .navbar_wrap_top {
     display:block!important;
     width:1000px;
-    height:31px;
     position: relative;
     left: -25px;
-    border-top:1px #142c46 solid;
+}
+
+.navbar_wrap {
+	height: 20px;
+}
+
+.navbar_wrap_top {
+    height:31px;
+    /*border-top:1px #142c46 solid;*/
+	border:0;
 }
 
 #nav_purchase {
@@ -138,7 +146,7 @@ ul.navigation li:nth-child(5) {
     width: 126px;
 }
 /* SAclopedia */
-ul#navigation li:nth-child(6) {
+ul.navigation li:nth-child(6) {
     width: 114px;
 }
 /* Posting Gloryhole */

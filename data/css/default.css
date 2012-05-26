@@ -78,7 +78,7 @@ div#mods a {
 	color: #c60 !important;
 }
 
-.navbar_wrap {
+.navbar_wrap_top {
     background-color:#fff;
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAfCAMAAAARF1dQAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABtQTFRFycnJu7u7+fn58fHxwcHB5+fn3d3d09PT////zAOgWwAAAAl0Uk5T//////////8AU094EgAAAB5JREFUeNpi4GAgBTIysDAwMLAzsDGwMjAzMAEEGAAdFgDVSuMsDwAAAABJRU5ErkJggg==');
     background-repeat: repeat-x;
@@ -86,13 +86,18 @@ div#mods a {
 }
 
 .navigation {
-    border-bottom:1px #8eaac9 solid;
+    border-bottom:1px #bbb solid;
     background:#e7eef5;
 }
+
+.navbar_wrap .navigation {
+	border-top:1px #bbb solid;
+}
+
 ul.navigation li {
     background-color:#ebebeb;
     border-left:1px #fff solid;
-    height: 19px !important;
+    height: 20px !important;
 }
 ul.navigation li a {
     color:#465963;
@@ -107,6 +112,6 @@ ul.navigation li a {
 .navigation .logout, .navigation .login {
     background-color:#E6DCBE;
 }
-ul#navigation li:nth-child(1) {
+ul.navigation li:nth-child(1) {
     border-left:0px;
 }

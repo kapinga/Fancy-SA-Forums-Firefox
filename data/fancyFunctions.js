@@ -128,8 +128,15 @@ if (typeof fancySAPage == "undefined") {
 			$("#globalmenu").insertBefore($("#container :first"));
 
 			// Fix forum navbar
-			$("ul.navigation").after("<div class='navbar_wrap'></div>");
-			$("div.navbar_wrap").each(function (index) {
+			//$("ul.navigation").after("<div class='navbar_wrap'></div>");
+			$("ul.navigation").each(function (i) {
+					if (i == 0) {
+						$(this).after("<div class='navbar_wrap_top'></div>");
+					} else {
+						$(this).after("<div class='navbar_wrap'></div>");
+					}
+				});
+			$("div.navbar_wrap, div.navbar_wrap_top").each(function (index) {
 					$(this).append($("ul.navigation").eq(index))
 				});
 			$("ul.navigation li").each(function(i, el) {
