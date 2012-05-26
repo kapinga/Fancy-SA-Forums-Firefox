@@ -78,33 +78,33 @@ div#mods a {
 	color: #c60 !important;
 }
 
-#navbar_wrap {
+.navbar_wrap {
     background-color:#fff;
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAfCAMAAAARF1dQAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABtQTFRFycnJu7u7+fn58fHxwcHB5+fn3d3d09PT////zAOgWwAAAAl0Uk5T//////////8AU094EgAAAB5JREFUeNpi4GAgBTIysDAwMLAzsDGwMjAzMAEEGAAdFgDVSuMsDwAAAABJRU5ErkJggg==');
     background-repeat: repeat-x;
     background-position: bottom;
 }
 
-#navigation {
+.navigation {
     border-bottom:1px #8eaac9 solid;
     background:#e7eef5;
 }
-ul#navigation li {
+ul.navigation li {
     background-color:#ebebeb;
     border-left:1px #fff solid;
     height: 19px !important;
 }
-ul#navigation li a {
+ul.navigation li a {
     color:#465963;
 }
-#navigation a, #navigation a:visited {
+.navigation a, #navigation a:visited {
     color: #465963;
 }
-#navigation a:hover {
+.navigation a:hover {
     background-color:#01385f;
     color:#fff;
 }
-#navigation #logout, #navigation #login {
+.navigation .logout, .navigation .login {
     background-color:#E6DCBE;
 }
 ul#navigation li:nth-child(1) {

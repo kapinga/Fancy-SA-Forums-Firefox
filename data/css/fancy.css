@@ -77,7 +77,7 @@ Navigation Bar
 
 */
 
-#navigation {
+.navigation {
 	font-size: 12px !important;
 	border-top: 0px;
 	height: 20px;
@@ -85,18 +85,18 @@ Navigation Bar
     width: 100%;
 }
 
-#navigation a, #navigation a:visited {
+.navigation a, .navigation a:visited {
 	text-decoration:none;
 	font-weight:bold;
     /*font-family: Arial, Verdana, sans-serif;*/
     padding-top: 3px;
     padding-bottom: 0px;
 }
-#navigation a:hover {
+.navigation a:hover {
     background-image:none;
 }
 
-#navbar_wrap {
+.navbar_wrap {
     display:block!important;
     width:1000px;
     height:31px;
@@ -109,7 +109,7 @@ Navigation Bar
 	display:none;
 }
 
-ul#navigation li {
+ul.navigation li {
     font-weight:bold;
     text-align:center;
     height:20px;
@@ -118,23 +118,23 @@ ul#navigation li {
 }
 
 /* SA Forums */
-ul#navigation li:nth-child(1) {
+ul.navigation li:nth-child(1) {
     width: 109px;
 }
 /* Search the Forums */
-ul#navigation li:nth-child(2) a {
+ul.navigation li:nth-child(2) a {
     width: 155px;
 }
 /* User Control Panel */
-ul#navigation li:nth-child(3) {
+ul.navigation li:nth-child(3) {
     width: 162px;
 }
 /* Private Messages */
-ul#navigation li:nth-child(4) {
+ul.navigation li:nth-child(4) {
     display: none;
 }
 /* Forum Rules */
-ul#navigation li:nth-child(5) {
+ul.navigation li:nth-child(5) {
     width: 126px;
 }
 /* SAclopedia */
@@ -142,23 +142,23 @@ ul#navigation li:nth-child(6) {
     width: 114px;
 }
 /* Posting Gloryhole */
-ul#navigation li:nth-child(7) {
+ul.navigation li:nth-child(7) {
     display: none;
 }
 /* Leper's Colon */
-ul#navigation li:nth-child(8) {
+ul.navigation li:nth-child(8) {
     width: 140px;
 }
 /* Support */
-ul#navigation li:nth-child(9) {
+ul.navigation li:nth-child(9) {
     width: 94px;
 }
 /* Log In/Log Out */
-ul#navigation li:nth-child(10) {
+ul.navigation li:nth-child(10) {
     width: 93px;
 }
 
-ul#navigation li a {
+ul.navigation li a {
     display:block;
     font-size: 12px;
     height:17px;
@@ -403,11 +403,11 @@ textarea {
 }
 
 #thread dl.userinfo dt.author.role-mod {
-    background-image: url(data:image/gif;base64,R0lGODlhDQANAKUxACaMtSaNtyeOuCeQuieRvCiSvSiTvyiVwSqaxyqbyTKl0zSl0zWm1Den1Dmo1Dqo1T2q1j+q1kKs10St10at10eu2Emv2Euw2Eyw2VCy2VW02lq221u33F233Gi932q932y+32+/4HHA4HLB4XTC4XbC4XzF437G43/H5IHH5ITJ5YnL5ovM5pDO55LP55PP6JfR6P///////////////////////////////////////////////////////////yH5BAEKAD8ALAAAAAANAA0AAAZkwJ9wCDAMj0MD64A8AiwwDAApqApaLJdV8CM4LJTNSrXaTCyPgaCESqVMJ5MbVeISOKHRiEQahToEQwIgHh+GHiBcRxcdjY0YTRoZGZKUSAQPFQkCCBUPgUOYBgU/Bgafl6lCQQA7) !important;
+    background-image: url('data:image/gif;base64,R0lGODlhDQANAKUxACaMtSaNtyeOuCeQuieRvCiSvSiTvyiVwSqaxyqbyTKl0zSl0zWm1Den1Dmo1Dqo1T2q1j+q1kKs10St10at10eu2Emv2Euw2Eyw2VCy2VW02lq221u33F233Gi932q932y+32+/4HHA4HLB4XTC4XbC4XzF437G43/H5IHH5ITJ5YnL5ovM5pDO55LP55PP6JfR6P///////////////////////////////////////////////////////////yH5BAEKAD8ALAAAAAANAA0AAAZkwJ9wCDAMj0MD64A8AiwwDAApqApaLJdV8CM4LJTNSrXaTCyPgaCESqVMJ5MbVeISOKHRiEQahToEQwIgHh+GHiBcRxcdjY0YTRoZGZKUSAQPFQkCCBUPgUOYBgU/Bgafl6lCQQA7') !important;
 }
 
 #thread dl.userinfo dt.author.role-admin {
-    background-image: url(data:image/gif;base64,R0lGODlhDQANAKUgALQrK7UsLLcsLLksLLotLbwtLcQvL884OM86Os88PNA/P9FBQdFCQtJFRdJJSdNKStNMTNRRUdVUVNZXV9lmZtppadtsbNtubt1yct10dN53d996euB/f+CDg+GGhuKJif///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////yH5BAEKAAwALAAAAAANAA0AAAZdQIZwCCAMj0MCp4A8Ah4fCAAZqAY6HI81wBAoHo0JZ8OZNB6K6kXDxmQwbM2FK5hULHh8ZSIYBiiAgRRcRw8Th4cQTRIREYyOSF4OBgEGDgp9Q14EAwwEBJiRokJBADs=) !important;
+    background-image: url('data:image/gif;base64,R0lGODlhDQANAKUgALQrK7UsLLcsLLksLLotLbwtLcQvL884OM86Os88PNA/P9FBQdFCQtJFRdJJSdNKStNMTNRRUdVUVNZXV9lmZtppadtsbNtubt1yct10dN53d996euB/f+CDg+GGhuKJif///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////yH5BAEKAAwALAAAAAANAA0AAAZdQIZwCCAMj0MCp4A8Ah4fCAAZqAY6HI81wBAoHo0JZ8OZNB6K6kXDxmQwbM2FK5hULHh8ZSIYBiiAgRRcRw8Th4cQTRIREYyOSF4OBgEGDgp9Q14EAwwEBJiRokJBADs=') !important;
 }
 
 #forum td.star, #forum td.icon2 {

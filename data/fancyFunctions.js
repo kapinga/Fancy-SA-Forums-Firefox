@@ -128,14 +128,16 @@ if (typeof fancySAPage == "undefined") {
 			$("#globalmenu").insertBefore($("#container :first"));
 
 			// Fix forum navbar
-			$("ul#navigation").after("<div id='navbar_wrap'></div>");
-			$("div#navbar_wrap").append($("ul#navigation"));
-			$("ul#navigation li").each(function(i, el) {
+			$("ul.navigation").after("<div class='navbar_wrap'></div>");
+			$("div.navbar_wrap").each(function (index) {
+					$(this).append($("ul.navigation").eq(index))
+				});
+			$("ul.navigation li").each(function(i, el) {
 				link = $(this).find("a");
 				if ($(link).attr('href').substr(1, 25) == 'account.php?action=logout')
-					$(this).attr("id", "logout");
+					$(this).attr("class", "logout");
 				else if ($(link).attr('href').substr(1, 24) == 'account.php?action=login') {
-					$(this).attr("id", "login");
+					$(this).attr("class", "login");
 					$(link).html('Log In');
 				}
 				$(this).empty().append(link);
