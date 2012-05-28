@@ -14,7 +14,15 @@ body {
 	height:100% !important;
 }
 
-#globalmenu {
+body > #globalmenu {
+	width: 1000px !important;
+	height: 24px !important;
+	
+	padding: 0 !important;
+	margin: 0 auto !important;
+}
+
+#container > #globalmenu {
 	/*position:absolute;*/
 	
 	width: 1000px !important;
@@ -122,12 +130,23 @@ Navigation Bar
 	display:none;
 }
 
+div#container > ul.navigation,
+div#container > ul#navifation {
+	margin-left: -25px !important;
+	width: 1000px !important;
+}
+
+div#container > ul > li > a {
+	display: inline !important;
+}
+
 ul.navigation li {
     font-weight:bold;
     text-align:center;
     height:20px;
     float:left;
     white-space:nowrap;
+	text-overflow:clip;
 }
 
 /* SA Forums */
@@ -433,8 +452,16 @@ textarea {
     background-image: url('data:image/gif;base64,R0lGODlhDQANAKUgALQrK7UsLLcsLLksLLotLbwtLcQvL884OM86Os88PNA/P9FBQdFCQtJFRdJJSdNKStNMTNRRUdVUVNZXV9lmZtppadtsbNtubt1yct10dN53d996euB/f+CDg+GGhuKJif///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////yH5BAEKAAwALAAAAAANAA0AAAZdQIZwCCAMj0MCp4A8Ah4fCAAZqAY6HI81wBAoHo0JZ8OZNB6K6kXDxmQwbM2FK5hULHh8ZSIYBiiAgRRcRw8Th4cQTRIREYyOSF4OBgEGDgp9Q14EAwwEBJiRokJBADs=') !important;
 }
 
-#forum td.star, #forum td.icon2 {
+#forum td.star, #forum td.icon2, #forum th.star, #forum th.icon2 {
     display: none;
+}
+
+#forum td.icon img:first-of-type {
+	margin-right: 3px;
+}
+
+#content > div.pages, #content > #ac_timemachine {
+	display: none;
 }
 
 span#bookmark_edit_attach {

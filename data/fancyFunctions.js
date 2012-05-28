@@ -158,9 +158,8 @@ if (typeof fancySAPage == "undefined") {
 				$("head").append("<link rel='stylesheet' type='text/css' href='"+fancySAPage.getURL("/css/default.css")+"' />");
 			}*/
 			// Still need to do this RFA fix, I guess
-			css = $("link[rel=stylesheet][href^='/css/rfa.css']");
 			//RFA Fix
-			if (css.size() > 0) {
+			if ($("link[rel=stylesheet][href^='/css/rfa.css']").size() > 0) {
 				$("ul#navigation").css("background-image", "none");
 				$("#content").before("<div style='width:100%;text-align:center;'><img src='http://fi.somethingawful.com/rfa/rfa-header.jpg'></div>");
 			}
@@ -223,7 +222,8 @@ if (typeof fancySAPage == "undefined") {
 					$(this).find("td.title").append("<div class='title_pages'>");
 				}
 				else {
-					$(this).find(".title_pages").prepend("<br />");
+					//$(this).find(".title_pages").prepend("<br />");
+					$(this).find(".title_pages").prepend(" - ");
 				}
 				$(this).find(".title_pages").prepend("by " + author.html());
 				$(this).find(".author:first").after(" - <span class='replies'>" + replies.html() + " replies</span>");
@@ -233,7 +233,7 @@ if (typeof fancySAPage == "undefined") {
 
 				// bookmark star
 				star = $(this).find("td.star img");
-				if (star.parent().css("display") != "none") {
+				//if (star.parent().css("display") != "none") {
 					star_src = $(star).attr('src');
 					if (star_src == "http://fi.somethingawful.com/style/bookmarks/star-off.gif")
 						$(star).attr('src', fancySAPage.getURL("/images/star-off.gif"));
@@ -244,12 +244,14 @@ if (typeof fancySAPage == "undefined") {
 					else if (star_src == "http://fi.somethingawful.com/style/bookmarks/star2.gif")
 						$(star).attr('src', fancySAPage.getURL("/images/star2.gif"));
 
-					star.css("margin-top", "5px");
+					/*star.css("margin-top", "5px");
 					star.css("margin-left", "45px");
 					posticon.after(star);
-					posticon.after("<br />");
+					posticon.after("<br />");*/
+					posticon.before(star);
 					$(this).find("td.star").remove();
-				}
+					$(this).find("td.icon").css("width", "78px");
+				//}
 
 				// Ask/tell and SA-Mart icons
 				icon2 = $(this).find("td.icon2 img");
@@ -271,7 +273,7 @@ if (typeof fancySAPage == "undefined") {
 
 					posticon.after(icon2);
 					$(this).find("td.icon2").remove();
-					$(this).find("td.icon").css("width", "100px");
+					$(this).find("td.icon").css("width", "113px");
 					$(icon2).css("margin-left", "1px");
 				}
 			});
@@ -279,7 +281,7 @@ if (typeof fancySAPage == "undefined") {
 			// Remove headers from merged columns
 			$("table#forum.threadlist thead tr th.star").remove();
 			$("table#forum.threadlist thead tr th.icon2").remove();
-			$("table#forum.threadlist thead tr th.icon").css("width", "100px");
+			$("table#forum.threadlist thead tr th.icon").css("width", "78px");
 
 			replies = $("th.replies a");
 			$("th.title").append('<span class="replies" style="float:right;margin-right: 20px;"></span>');
