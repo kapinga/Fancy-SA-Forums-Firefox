@@ -25,23 +25,55 @@ $.noConflict();
 // And wrap all my code within the "fancySAPage" namespace
 if (typeof fancySAPage == "undefined") {
 	var fancySAPage = {
-		getURL: function (url) {
-			return (this.baseURL + url);
-		},
 		adframeRegEx: /^http:\/\/forums\.somethingawful\.com\/(adframe\.php|eyewonder)/i,
 		searchRegEx: /^http:\/\/forums\.somethingawful\.com\/f\/search/i,
 		breakTablesRegEx: /^http:\/\/forums\.somethingawful\.com\/(showthread\.php?.*|newreply\.php?|editpost\.php)/i,
 		
-		Init: function (baseURL) {
-			this.baseURL = baseURL.substr(0, baseURL.length-1);
+		URLset: false,
+		pageReady: false,
+		
+		getURL: function (url) {
+			return (this.baseURL + url);
+		},
+		
+		Init: function () {
+			// Initialize the "getURL" listeners
+			self.port.on("getURL", function(url) {
+				self.port.emit("log", "URL received");
+				fancySAPage.baseURL = url.substr(0, url.length-1);
+				fancySAPage.URLset = true;
+				self.port.emit("log", "fancySAPage.pageReady: " + fancySAPage.pageReady);
+				if (fancySAPage.pageReady) {
+					fancySAPage.Fancy(jQuery());
+				}
+			});
+			
 			// This script doesn't need to run on ads, and hangs on the search page (something to do with the $().wrapAll() function)
 			// So skip those pages:
 			if (!(this.adframeRegEx.test(document.location)) && !(this.searchRegEx.test(document.location))) {
+				// Request the extension's base URL
+				self.port.emit("getURL", null);
+				
 				// The script makes a lot of things jump around. Hide everything on the page while we're changing them
-				jQuery("head").append('<style type="text/css" id="hideCSS">body * {\n\tvisibility: hidden !important;\n}</style>');
+				
+				css = jQuery("link[rel=stylesheet][href^='/css/219.css']");
+				if (css.size() > 0) {
+					// Make YOSPOS sit black instead
+					jQuery("head").append('<style type="text/css" id="hideCSS">body * {\n\tvisibility: hidden !important;\n}\nbody {\n\tbackground-color: #000 !important;\n}</style>');
+				} else {
+					jQuery("head").append('<style type="text/css" id="hideCSS">body * {\n\tvisibility: hidden !important;\n}\nbody {\n\tbackground-color: #262D35 !important;\n}</style>');
+				}
 				
 				// And when the "ready" event finally hits, start modifying the script
-				jQuery("document").ready(function ($) {fancySAPage.PageReady($)});
+				jQuery("document").ready(function ($) {
+					fancySAPage.pageReady = true;
+					if (fancySAPage.URLset) {
+						fancySAPage.Fancy($)
+					} else {
+						// If we don't have a URL, try again
+						self.port.emit("getURL", null);
+					}
+				});
 				
 				// Set an "emergency" timeout if the script hangs or the page is too slow to load:
 				window.setTimeout(function() {
@@ -50,36 +82,22 @@ if (typeof fancySAPage == "undefined") {
 			}
 		},
 		
-		PageReady: function ($) {
-			self.port.emit("log", "fancySAPage.PageReady($) called");
-			// Attach the base fancy.css page. This was done in the manifest.json
-			// file in the chrome extension, so do it before running Fancy()
-			$("link[rel=stylesheet][href^='http://www.somethingawful.com/globalcss/globalmenu.css']").after('<link rel="stylesheet" href="' + fancySAPage.getURL("/css/fancy.css") + '">');
-			this.Fancy($);
-			self.port.emit("log", "fancySAPage.Fancy() complete");
-			if (this.breakTablesRegEx.test(document.location)) {
-				this.UnbreakTables($);
-			}
-			
-			// Once everything has run, remove the hiding css
-			window.setTimeout(function() {
-				$('style[id="hideCSS"]').detach();
-			}, 15);
-		},
-		
-		// This function is minimally modified from the original fancy.css included
-		// with the chrome extension. chrome.extension.getURL was renamed to
-		// fancySAPage.getURL, a couple of tweaks were added to the 219.css
-		// behavior, and chrome specific fixes were removed.
+		// This function is modified from the original fancy.css included
+		// with the chrome extension.
 		Fancy: function ($) {
+			// Attach the base fancy.css page. This was done in the manifest.json
+			// file in the chrome extension, so do it first
+			$("link[rel=stylesheet][href^='http://www.somethingawful.com/globalcss/globalmenu.css']").after('<link rel="stylesheet" href="' + fancySAPage.getURL("/css/fancy.css") + '">');
+
+			// Begin "fancy.js" code
 			css = jQuery("link[rel=stylesheet][href^='/css/219.css']");
 			if (css.size() > 0) {
 				// Replace broken 219.css with updated version
 				//css.attr("href", fancySAPage.getURL("/css/219.css"));
 				// Do this by linking the new one and eventually unlinking the old. This 
 				// prevents any extra "flashes" the firefox tends to do...
-				css.after("<link rel='stylesheet' type='text/css' href='" + fancySAPage.getURL("/css/219.css") + "' />");
-				window.setTimeout(function() {css.remove();}, 1000);
+				css.after("<link rel='stylesheet' type='text/css' href='" + fancySAPage.getURL("/css/219-amber.css") + "' />");
+				window.setTimeout(function() {css.remove();}, 10);
 			}
 
 			if (css.size() == 0) {
@@ -114,8 +132,18 @@ if (typeof fancySAPage == "undefined") {
 			}
 
 			// Add frontpage style banner
-			$("#container").prepend("<div id='header'><img id='logo_img_bluegren' src='"+fancySAPage.getURL("/images/head-logo-bluegren.png")+"' /></div>")
-
+			$("#container").prepend("<div id='header' class='hidden'><img id='logo_img_bluegren' src='"+fancySAPage.getURL("/images/head-logo-bluegren.png")+"' /></div>")
+			
+			/*if (localStorage.getItem("hideHeader") != "true") {
+			  $("#header").toggleClass("hidden"); //classes are used rather than just display: toggles so that they can be overriden by subforum-specific stylesheets
+			}*/
+			self.port.emit("getHideHeader", null);
+			self.port.on("getHideHeader", function(hideHeader) {
+				if (hideHeader !== true) {
+					$("#header").toggleClass("hidden");
+				}
+			});
+			
 			// Moves the archives box
 			if ($(".forumbar").size() == 0)
 				$("table#subforums").after("<div class='forumbar'></div>");
@@ -125,21 +153,14 @@ if (typeof fancySAPage == "undefined") {
 			$(".mainbodytextlarge:last, .online_users:last").wrapAll($("<div class ='breadcrumbs' />"));
 
 			// Add banner
+			$("#globalmenu").append("<ul class='right'>");
+			$("#globalmenu ul.right").append("<li class='first'><a class='toggle' href='#'>toggle header</a></li>");
 			$("#globalmenu").insertBefore($("#container :first"));
 
 			// Fix forum navbar
-			//$("ul.navigation").after("<div class='navbar_wrap'></div>");
-			// TODO: make these both be class navbar_wrap, but add an extra ID field for the top one
-			$("ul.navigation").each(function (i) {
-					if (i == 0) {
-						$(this).after("<div class='navbar_wrap_top'></div>");
-					} else {
-						$(this).after("<div class='navbar_wrap'></div>");
-					}
-				});
-			$("div.navbar_wrap, div.navbar_wrap_top").each(function (index) {
-					$(this).append($("ul.navigation").eq(index))
-				});
+			$("ul.navigation").wrap("<div class='navbar_wrap'>");
+			$("div.navbar_wrap").filter(":first").addClass("top");
+			$("div.navbar_wrap").filter(":last").addClass("bottom");
 			$("ul.navigation li").each(function(i, el) {
 				link = $(this).find("a");
 				if ($(link).attr('href').substr(1, 25) == 'account.php?action=logout')
@@ -176,21 +197,23 @@ if (typeof fancySAPage == "undefined") {
 
 				// bookmark star
 				star = $(this).find("td.star img");
-				star_src = $(star).attr('src');
-				if (star_src == "http://fi.somethingawful.com/style/bookmarks/star-off.gif")
-					$(star).attr('src', fancySAPage.getURL("/images/star-off.gif"));
-				else if (star_src == "http://fi.somethingawful.com/style/bookmarks/star0.gif")
-					$(star).attr('src', fancySAPage.getURL("/images/star0.gif"));
-				else if (star_src == "http://fi.somethingawful.com/style/bookmarks/star1.gif")
-					$(star).attr('src', fancySAPage.getURL("/images/star1.gif"));
-				else if (star_src == "http://fi.somethingawful.com/style/bookmarks/star2.gif")
-					$(star).attr('src', fancySAPage.getURL("/images/star2.gif"));
+				if (star.parent().css("display") != "none") {
+					star_src = $(star).attr('src');
+					if (star_src == "http://fi.somethingawful.com/style/bookmarks/star-off.gif")
+						$(star).attr('src', fancySAPage.getURL("/images/star-off.gif"));
+					else if (star_src == "http://fi.somethingawful.com/style/bookmarks/star0.gif")
+						$(star).attr('src', fancySAPage.getURL("/images/star0.gif"));
+					else if (star_src == "http://fi.somethingawful.com/style/bookmarks/star1.gif")
+						$(star).attr('src', fancySAPage.getURL("/images/star1.gif"));
+					else if (star_src == "http://fi.somethingawful.com/style/bookmarks/star2.gif")
+						$(star).attr('src', fancySAPage.getURL("/images/star2.gif"));
 
-				star.css("margin-top", "5px");
-				star.css("margin-left", "45px");
-				posticon.after(star);
-				posticon.after("<br />");
-				$(this).find("td.star").remove();
+					star.css("margin-top", "5px");
+					star.css("margin-left", "45px");
+					posticon.after(star);
+					posticon.after("<br />");
+					$(this).find("td.star").remove();
+				}
 
 				// Ask/tell and SA-Mart icons
 				icon2 = $(this).find("td.icon2 img");
@@ -234,7 +257,6 @@ if (typeof fancySAPage == "undefined") {
 			*/
 
 			// --- forumdisplay.php ---
-
 			if (window.location.pathname == "/forumdisplay.php") {
 				// top
 				$("#forum").before("<div class = 'forumbar top' />");
@@ -251,7 +273,6 @@ if (typeof fancySAPage == "undefined") {
 
 
 			// --- showthread.php ---
-
 			if (window.location.pathname == "/showthread.php") {
 				// top
 				$(".threadbar.top").append("<div class = 'threadbar_pages' />");
@@ -264,44 +285,8 @@ if (typeof fancySAPage == "undefined") {
 				// Hide the new thread button from instead a thread
 				$("ul.postbuttons li a[href^='newthread.php']").parent().css("display","none");
 			}
-
-
-			/*$(".threadbar .threadrate").before($(".threadbar.bottom .postbuttons"))
-
-			$(".threadrate b").html("Rate: ");*/
-
-
-			/* Webkit timg fixes */
-			/*function toggleTimg(e) {
-				var old_width = $(this).attr('old_width');
-
-				if ( old_width !== undefined ) {
-					$(this).attr('width', old_width);
-					$(this).removeAttr('old_width');
-				} else {
-					$(this).attr('old_width', $(this).attr('width'));
-					$(this).removeAttr('width');
-				}
-			}
-
-			$(".timg").css("border", "2px solid #2D9F09");
-
-			$(".timg").each(function(i) {
-				if ($(this).parent('a').length > 0) {
-					if ($(this).parent('a').attr('href') == $(this).attr('src')) {
-						$(this).unwrap();
-						$(this).click(toggleTimg);
-					}
-				}
-				else {
-					console.log("timg'd");
-					$(this).click(toggleTimg);
-				}
-
-			});*/
-
+			
 			// --- bookmarkthreads.php and usercp.php ---
-
 
 			if (window.location.pathname == "/usercp.php" || window.location.pathname == "/bookmarkthreads.php") {
 				// top
@@ -332,13 +317,31 @@ if (typeof fancySAPage == "undefined") {
 			$("ul#usercpnav li a[href$='userlist=ignore']").html("Ignore List");
 
 
-			// --- Reply Page ---
-			/*$("form[action=newreply.php] div#thread").css({'overflow':'scroll','height':'500px'});
-			$("form[action=newreply.php] div#thread table.post").each(function(i, el) {
-				$(this).find("tr:eq(1)").css("display", "none");
-				$(this).find("dd.title").css("display", "none");
-				$(this).find("dd.registered").css("display", "none");
-			});*/
+
+			// header toggle
+
+			$("#globalmenu a.toggle").click(function(e) {
+				e.preventDefault();
+				$("#header").toggleClass("hidden");
+				
+				/*if (localStorage.getItem("hideHeader") == "false")
+					localStorage.setItem("hideHeader", "true");
+				else
+					localStorage.setItem("hideHeader", "false");
+				}*/
+				
+				self.port.emit("toggleHideHeader", null);
+			});
+			
+			// End "fancy.js" code
+			
+			// After all this, unbreak the tables if necessary
+			if (this.breakTablesRegEx.test(document.location)) {
+				this.UnbreakTables($);
+			}
+			
+			// Once everything has run, remove the hiding css
+			$('style[id="hideCSS"]').detach();
 		}, 
 		
 		// For pages that might contain table-breaking images, this function will
@@ -389,4 +392,7 @@ if (typeof fancySAPage == "undefined") {
 			});
 		}
 	};
+	
+	// Now get started
+	fancySAPage.Init();
 }

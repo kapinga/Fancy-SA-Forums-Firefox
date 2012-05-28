@@ -46,12 +46,21 @@ body {
 	color: #ACAFB1 !important;
 }
 
+#globalmenu .first a,
+#globalmenu ul.right {
+	color: #069 !important;
+}
+
 #globalmenu a:hover {
 	text-decoration:none !important;
 }
 
-#globalmenu .first a {
-	color: #069 !important;
+#globalmenu ul {
+	float: left;
+}
+
+#globalmenu ul.right {
+	float: right;
 }
 
 #container {
@@ -88,7 +97,6 @@ Navigation Bar
 .navigation a, .navigation a:visited {
 	text-decoration:none;
 	font-weight:bold;
-    /*font-family: Arial, Verdana, sans-serif;*/
     padding-top: 3px;
     padding-bottom: 0px;
 }
@@ -96,18 +104,15 @@ Navigation Bar
     background-image:none;
 }
 
-.navbar_wrap, .navbar_wrap_top {
+.navbar_wrap {
     display:block!important;
     width:1000px;
     position: relative;
     left: -25px;
-}
-
-.navbar_wrap {
 	height: 20px;
 }
 
-.navbar_wrap_top {
+.navbar_wrap.top {
     height:31px;
     /*border-top:1px #142c46 solid;*/
 	border:0;
@@ -316,6 +321,16 @@ Header
 	
 	margin: 0;
 	border: 0;
+}
+
+#header.hidden {
+	/*display:none;*/
+	height: 0;
+	border: 0 none;
+}
+
+#header.hidden * {
+	display: none;
 }
 
 /* stupid jumplist  */
