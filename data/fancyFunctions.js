@@ -31,21 +31,30 @@ if (typeof fancySAPage == "undefined") {
 		
 		URLset: false,
 		pageReady: false,
+		hideHeader: false,
 		
 		getURL: function (url) {
 			return (this.baseURL + url);
 		},
 		
 		Init: function () {
-			// Initialize the "getURL" listeners
+			// Initialize the self.port listeners
 			self.port.on("getURL", function(url) {
 				self.port.emit("log", "URL received");
 				fancySAPage.baseURL = url.substr(0, url.length-1);
 				fancySAPage.URLset = true;
-				self.port.emit("log", "fancySAPage.pageReady: " + fancySAPage.pageReady);
-				if (fancySAPage.pageReady) {
-					fancySAPage.Fancy(jQuery());
-				}
+				
+				// Now that we have the URL, attempt to attach the CSS
+				fancySAPage.AttachFancyCSS();
+				
+				// And when the "ready" event finally hits, start modifying the script
+				jQuery("document").ready(function ($) {
+					fancySAPage.Fancy($)
+				});
+			});
+			
+			self.port.on("getHideHeader", function(hideHeader) {
+				fancySAPage.hideHeader = hideHeader;
 			});
 			
 			// This script doesn't need to run on ads, and hangs on the search page (something to do with the $().wrapAll() function)
@@ -53,44 +62,69 @@ if (typeof fancySAPage == "undefined") {
 			if (!(this.adframeRegEx.test(document.location)) && !(this.searchRegEx.test(document.location))) {
 				// Request the extension's base URL
 				self.port.emit("getURL", null);
+				// And request the hideHeader value
+				self.port.emit("getHideHeader", null);
+			}
+		},
+		
+		AttachFancyCSS: function() {
+			self.port.emit("log", "AttachFancyCSS called");
+			// Attach the base fancy.css page. This was done in the manifest.json
+			// file in the chrome extension, so do it as soon as there's a head object
+			if (document.head !== undefined) {
+				css = document.createElement("link");
+				css.setAttribute("rel", "stylesheet");
+				css.setAttribute("href", fancySAPage.getURL("/css/fancy.css"));
+				document.head.insertBefore(css, document.head.firstChild);
+				self.port.emit("log", "fancy.css attached!");
 				
-				// The script makes a lot of things jump around. Hide everything on the page while we're changing them
-				
-				css = jQuery("link[rel=stylesheet][href^='/css/219.css']");
-				if (css.size() > 0) {
-					// Make YOSPOS sit black instead
-					jQuery("head").append('<style type="text/css" id="hideCSS">body * {\n\tvisibility: hidden !important;\n}\nbody {\n\tbackground-color: #000 !important;\n}</style>');
+				fancySAPage.AttachForumCSS();
+			} else {
+				window.setTimeout(fancySAPage.AttachFancyCSS(), 10);
+			}
+		},
+		
+		AttachForumCSS: function() {
+			css = jQuery("link[rel=stylesheet][href^='/css/']");
+			self.port.emit("log", "css.size: " + css.size());
+			if (css.size() == 2) {
+				// We should be in a normal forum. All forums have at least
+				// main.css and bbcode.css
+				jQuery("head").append("<link rel='stylesheet' type='text/css' href='"+fancySAPage.getURL("/css/default.css")+"' />");
+			} else if (css.size() > 2) {
+				// We might be in a non-normal styled forum. Check a little more carefully
+				css219 = css.filter("[href^='/css/219.css']");
+				if (css219.size() > 0) {
+					self.port.emit("log", "219.css found");
+					// Replace broken 219.css with updated version
+					//css219.attr("href", fancySAPage.getURL("/css/219.css"));
+					// Do this by linking the new one and eventually unlinking the old. This 
+					// prevents any extra "flashes" the firefox tends to do...
+					css219.after("<link rel='stylesheet' type='text/css' href='" + fancySAPage.getURL("/css/219-amber.css") + "' />");
+					window.setTimeout(function() {css219.remove();}, 10);
 				} else {
-					jQuery("head").append('<style type="text/css" id="hideCSS">body * {\n\tvisibility: hidden !important;\n}\nbody {\n\tbackground-color: #262D35 !important;\n}</style>');
-				}
-				
-				// And when the "ready" event finally hits, start modifying the script
-				jQuery("document").ready(function ($) {
-					fancySAPage.pageReady = true;
-					if (fancySAPage.URLset) {
-						fancySAPage.Fancy($)
-					} else {
-						// If we don't have a URL, try again
-						self.port.emit("getURL", null);
+					cssFYAD = css.filter("[href^='/css/fyad.css']");
+					if (cssFYAD.size() > 0) {
+						cssFYAD.after("<link rel='stylesheet' type='text/css' href='"+fancySAPage.getURL("/css/fyad.css")+"' />");
+					} else if (css.filter("[href^='/css/gaschamber.css'],[href^='/css/byob.css'],[href^='/css/rfa.css']").size() == 0) {
+						// Only if none of the above matches should we load the default css
+						self.port.emit("log", "css.size > 2, but still attaching default.css");
+						jQuery("head").append("<link rel='stylesheet' type='text/css' href='"+fancySAPage.getURL("/css/default.css")+"' />");
 					}
-				});
-				
-				// Set an "emergency" timeout if the script hangs or the page is too slow to load:
-				window.setTimeout(function() {
-					jQuery('style[id="hideCSS"]').detach();
-				}, 2000);
+				}
+			} else {
+				// We probably haven't loaded everything, so wait 10ms and try again
+				self.port.emit("log", "Trying again");
+				window.setTimeout(fancySAPage.AttachForumCSS(), 10);
 			}
 		},
 		
 		// This function is modified from the original fancy.css included
 		// with the chrome extension.
 		Fancy: function ($) {
-			// Attach the base fancy.css page. This was done in the manifest.json
-			// file in the chrome extension, so do it first
-			$("link[rel=stylesheet][href^='http://www.somethingawful.com/globalcss/globalmenu.css']").after('<link rel="stylesheet" href="' + fancySAPage.getURL("/css/fancy.css") + '">');
-
 			// Begin "fancy.js" code
-			css = jQuery("link[rel=stylesheet][href^='/css/219.css']");
+			// The relevant css is attached before the document calls the ready function
+			/*css = jQuery("link[rel=stylesheet][href^='/css/219.css']");
 			if (css.size() > 0) {
 				// Replace broken 219.css with updated version
 				//css.attr("href", fancySAPage.getURL("/css/219.css"));
@@ -122,6 +156,13 @@ if (typeof fancySAPage == "undefined") {
 			}
 			if (css.size() == 0) {
 				$("head").append("<link rel='stylesheet' type='text/css' href='"+fancySAPage.getURL("/css/default.css")+"' />");
+			}*/
+			// Still need to do this RFA fix, I guess
+			css = $("link[rel=stylesheet][href^='/css/rfa.css']");
+			//RFA Fix
+			if (css.size() > 0) {
+				$("ul#navigation").css("background-image", "none");
+				$("#content").before("<div style='width:100%;text-align:center;'><img src='http://fi.somethingawful.com/rfa/rfa-header.jpg'></div>");
 			}
 
 			// Wraps the search in a container for proper styling
@@ -134,15 +175,10 @@ if (typeof fancySAPage == "undefined") {
 			// Add frontpage style banner
 			$("#container").prepend("<div id='header' class='hidden'><img id='logo_img_bluegren' src='"+fancySAPage.getURL("/images/head-logo-bluegren.png")+"' /></div>")
 			
-			/*if (localStorage.getItem("hideHeader") != "true") {
+			//if (localStorage.getItem("hideHeader") != "true") {
+			if (!fancySAPage.hideHeader) {
 			  $("#header").toggleClass("hidden"); //classes are used rather than just display: toggles so that they can be overriden by subforum-specific stylesheets
-			}*/
-			self.port.emit("getHideHeader", null);
-			self.port.on("getHideHeader", function(hideHeader) {
-				if (hideHeader !== true) {
-					$("#header").toggleClass("hidden");
-				}
-			});
+			}
 			
 			// Moves the archives box
 			if ($(".forumbar").size() == 0)
@@ -261,7 +297,8 @@ if (typeof fancySAPage == "undefined") {
 				// top
 				$("#forum").before("<div class = 'forumbar top' />");
 				$(".forumbar.top").append("<div class = 'forumbar_pages' />");
-				$(".forumbar_pages").append($("#mp_bar .pages"));
+				//$(".forumbar_pages").append($("#mp_bar .pages"));
+				$(".forumbar_pages").append($(".pages"));
 
 				// bottom
 				$(".forumbar:last").append("<div class = 'forumbar_pages' />");
@@ -329,7 +366,7 @@ if (typeof fancySAPage == "undefined") {
 				else
 					localStorage.setItem("hideHeader", "false");
 				}*/
-				
+				fancySAPage.hideHeader = !fancySAPage.hideHeader;
 				self.port.emit("toggleHideHeader", null);
 			});
 			
@@ -339,9 +376,6 @@ if (typeof fancySAPage == "undefined") {
 			if (this.breakTablesRegEx.test(document.location)) {
 				this.UnbreakTables($);
 			}
-			
-			// Once everything has run, remove the hiding css
-			$('style[id="hideCSS"]').detach();
 		}, 
 		
 		// For pages that might contain table-breaking images, this function will
