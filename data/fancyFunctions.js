@@ -80,7 +80,7 @@ if (typeof fancySAPage == "undefined") {
 				
 				fancySAPage.AttachForumCSS();
 			} else {
-				window.setTimeout(fancySAPage.AttachFancyCSS(), 10);
+				window.setTimeout(function() {fancySAPage.AttachFancyCSS()}, 10);
 			}
 		},
 		
@@ -115,7 +115,7 @@ if (typeof fancySAPage == "undefined") {
 			} else {
 				// We probably haven't loaded everything, so wait 10ms and try again
 				self.port.emit("log", "Trying again");
-				window.setTimeout(fancySAPage.AttachForumCSS(), 10);
+				window.setTimeout(function() {fancySAPage.AttachForumCSS()}, 10);
 			}
 		},
 		
