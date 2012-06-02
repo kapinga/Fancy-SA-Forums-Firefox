@@ -244,13 +244,13 @@ if (typeof fancySAPage == "undefined") {
 					else if (star_src == "http://fi.somethingawful.com/style/bookmarks/star2.gif")
 						$(star).attr('src', fancySAPage.getURL("/images/star2.gif"));
 
-					/*star.css("margin-top", "5px");
+					star.css("margin-top", "5px");
 					star.css("margin-left", "45px");
 					posticon.after(star);
-					posticon.after("<br />");*/
-					posticon.before(star);
+					posticon.after("<br />");
+					//posticon.before(star);
 					$(this).find("td.star").remove();
-					$(this).find("td.icon").css("width", "78px");
+					//$(this).find("td.icon").css("width", "78px");
 				//}
 
 				// Ask/tell and SA-Mart icons
@@ -273,7 +273,7 @@ if (typeof fancySAPage == "undefined") {
 
 					posticon.after(icon2);
 					$(this).find("td.icon2").remove();
-					$(this).find("td.icon").css("width", "113px");
+					$(this).find("td.icon").css("width", "100px");
 					$(icon2).css("margin-left", "1px");
 				}
 			});
@@ -281,7 +281,7 @@ if (typeof fancySAPage == "undefined") {
 			// Remove headers from merged columns
 			$("table#forum.threadlist thead tr th.star").remove();
 			$("table#forum.threadlist thead tr th.icon2").remove();
-			$("table#forum.threadlist thead tr th.icon").css("width", "78px");
+			$("table#forum.threadlist thead tr th.icon").css("width", "1px");
 
 			replies = $("th.replies a");
 			$("th.title").append('<span class="replies" style="float:right;margin-right: 20px;"></span>');
