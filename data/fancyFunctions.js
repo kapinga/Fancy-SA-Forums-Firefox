@@ -32,7 +32,6 @@ if (typeof fancySAPage == "undefined") {
 		URLset: false,
 		pageReady: false,
 		hideHeader: false,
-		layout: "compact",
 		
 		getURL: function (url) {
 			return (this.baseURL + url);
@@ -231,10 +230,9 @@ if (typeof fancySAPage == "undefined") {
 
 				// Merge columns into posticon field
 				posticon = $(this).find("td.icon img");
-				posticon.addClass("posticon");
+
 				// bookmark star
 				star = $(this).find("td.star img");
-				star.addClass("star");
 				//if (star.parent().css("display") != "none") {
 					star_src = $(star).attr('src');
 					if (star_src == "http://fi.somethingawful.com/style/bookmarks/star-off.gif")
@@ -246,23 +244,13 @@ if (typeof fancySAPage == "undefined") {
 					else if (star_src == "http://fi.somethingawful.com/style/bookmarks/star2.gif")
 						$(star).attr('src', fancySAPage.getURL("/images/star2.gif"));
 
-					if (fancySAPage.layout == "compact") {
-						posticon.after(star);
-						/*star.css("position", "relative");
-						star.css("left", "-63px");
-						posticon.css("margin", "0");
-						posticon.css("position", "relative");
-						posticon.css("left", "15px");*/
-						$(this).find("td.icon").addClass("compact");
-					} else if (fancySAPage.layout == "expanded") {
-						//star.css("margin-top", "5px");
-						//star.css("margin-left", "45px");
-						//posticon.after("<br />");
-						posticon.before(star);
-						$(this).find("td.icon").addClass("expanded");
-					}
+					/*star.css("margin-top", "5px");
+					star.css("margin-left", "45px");
+					posticon.after(star);
+					posticon.after("<br />");*/
+					posticon.before(star);
 					$(this).find("td.star").remove();
-					$(this).find("td.icon").css("width", "75px");
+					$(this).find("td.icon").css("width", "78px");
 				//}
 
 				// Ask/tell and SA-Mart icons
@@ -283,8 +271,7 @@ if (typeof fancySAPage == "undefined") {
 					else if (icon2_src == 'http://fi.somethingawful.com/forums/posticons/icon-52-trading.gif')
 						$(icon2).attr('src', fancySAPage.getURL("/images/samart-bid.gif"));
 
-					//posticon.after(icon2);
-					star.after(icon2);
+					posticon.after(icon2);
 					$(this).find("td.icon2").remove();
 					$(this).find("td.icon").css("width", "113px");
 					$(icon2).css("margin-left", "1px");
@@ -294,8 +281,7 @@ if (typeof fancySAPage == "undefined") {
 			// Remove headers from merged columns
 			$("table#forum.threadlist thead tr th.star").remove();
 			$("table#forum.threadlist thead tr th.icon2").remove();
-			// The expanded icon column needs a specified header width, although the value is irrelavent
-			$("table#forum.threadlist thead tr th.icon").css("width", "1px");
+			$("table#forum.threadlist thead tr th.icon").css("width", "78px");
 
 			replies = $("th.replies a");
 			$("th.title").append('<span class="replies" style="float:right;margin-right: 20px;"></span>');
