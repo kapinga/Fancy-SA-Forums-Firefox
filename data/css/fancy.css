@@ -216,7 +216,8 @@ table#info {
 	display:none;
 }
 
-#forums th, #index table#pm th {
+#forums th, #index table#pm th,
+#forum th {
 	padding-top:5px;
 	padding-bottom:5px;
 	padding-left:10px;
@@ -226,11 +227,27 @@ table#info {
 	font-size:13px !important;
 }
 
-#forums td, #index table#pm td {
+#forums td, #index table#pm td,
+#forum td {
 	padding-top:3px !important;
 	padding-bottom:3px !important;
 	padding-left:10px !important;
 	padding-right:10px !important;	
+}
+
+#forum td.icon.compact {
+	width: 75px;
+}
+
+#forum td.icon.compact img.star {
+	position: relative;
+	left: -63px;
+}
+
+#forum td.icon.compact img.posticon {
+	margin: 0;
+	position: relative;
+	left: 15px;
 }
 
 #forums .moderators {
@@ -452,13 +469,17 @@ textarea {
     background-image: url('data:image/gif;base64,R0lGODlhDQANAKUgALQrK7UsLLcsLLksLLotLbwtLcQvL884OM86Os88PNA/P9FBQdFCQtJFRdJJSdNKStNMTNRRUdVUVNZXV9lmZtppadtsbNtubt1yct10dN53d996euB/f+CDg+GGhuKJif///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////yH5BAEKAAwALAAAAAANAA0AAAZdQIZwCCAMj0MCp4A8Ah4fCAAZqAY6HI81wBAoHo0JZ8OZNB6K6kXDxmQwbM2FK5hULHh8ZSIYBiiAgRRcRw8Th4cQTRIREYyOSF4OBgEGDgp9Q14EAwwEBJiRokJBADs=') !important;
 }
 
-#forum td.star, #forum td.icon2, #forum th.star, #forum th.icon2 {
+/*#forum td.star, #forum th.star {
     display: none;
+}*/
+
+#forum td.icon2, #forum th.icon2 {
+	display: none;
 }
 
-#forum td.icon img:first-of-type {
+/*#forum td.icon img:first-of-type {
 	margin-right: 3px;
-}
+}*/
 
 #content > div.pages, #content > #ac_timemachine {
 	display: none;
