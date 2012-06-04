@@ -32,7 +32,7 @@ if (typeof fancySAPage == "undefined") {
 		URLset: false,
 		pageReady: false,
 		hideHeader: false,
-		layout: "compact",
+		forumLayout: "expanded",
 		
 		getURL: function (url) {
 			return (this.baseURL + url);
@@ -58,6 +58,10 @@ if (typeof fancySAPage == "undefined") {
 				fancySAPage.hideHeader = hideHeader;
 			});
 			
+			self.port.on("getForumLayout", function(forumLayout) {
+				fancySAPage.forumLayout = forumLayout;
+			});
+			
 			// This script doesn't need to run on ads, and hangs on the search page (something to do with the $().wrapAll() function)
 			// So skip those pages:
 			if (!(this.adframeRegEx.test(document.location)) && !(this.searchRegEx.test(document.location))) {
@@ -65,6 +69,8 @@ if (typeof fancySAPage == "undefined") {
 				self.port.emit("getURL", null);
 				// And request the hideHeader value
 				self.port.emit("getHideHeader", null);
+				// And request the forumLayout value
+				self.port.emit("getForumLayout", null);
 			}
 		},
 		
@@ -191,6 +197,17 @@ if (typeof fancySAPage == "undefined") {
 			// Add banner
 			$("#globalmenu").append("<ul class='right'>");
 			$("#globalmenu ul.right").append("<li class='first'><a class='toggle' href='#'>toggle header</a></li>");
+			// Add the forum layout toggle
+			if ((window.location.pathname == "/forumdisplay.php") || (window.location.pathname == "/usercp.php" || window.location.pathname == "/bookmarkthreads.php")) {
+				text = '';
+				if (fancySAPage.forumLayout == "compact") {
+					text = 'switch to expanded view';
+				} else if (fancySAPage.forumLayout == "expanded") {
+					text = 'switch to compact view';
+				}
+				$("#globalmenu ul.right li.first").toggleClass("first");
+				$("#globalmenu ul.right").prepend("<li class='first'><a class='layoutSwitch' href='#'>" + text + "</a></li>");
+			}
 			$("#globalmenu").insertBefore($("#container :first"));
 
 			// Fix forum navbar
@@ -211,6 +228,13 @@ if (typeof fancySAPage == "undefined") {
 			// Move the copyright outside #container
 			$("#container").after($("#copyright"));
 			
+			// Specify classes for compact vs expanded forum list
+			if (fancySAPage.forumLayout == "compact") {
+				$("table#forum.threadlist").addClass("compact");
+			} else if (fancySAPage.forumLayout == "expanded") {
+				$("table#forum.threadlist").addClass("expanded");
+			}
+			
 			// Move the post author content
 			$("table#forum.threadlist tbody tr").each(function(i, el) {
 				
@@ -223,11 +247,16 @@ if (typeof fancySAPage == "undefined") {
 					$(this).find("td.title").append("<div class='title_pages'>");
 				}
 				else {
+					$(this).find("td.title").append($(this).find(".title_pages"));
+					$(this).find(".title_pages").addClass("thread_pages");
+					$(this).find(".thread_pages").removeClass("title_pages");
+					$(this).find(".thread_pages").wrap("<div class='title_pages' />");
 					//$(this).find(".title_pages").prepend("<br />");
-					$(this).find(".title_pages").prepend(" - ");
+					//$(this).find(".title_pages").prepend(" - ");
 				}
-				$(this).find(".title_pages").prepend("by " + author.html());
-				$(this).find(".author:first").after(" - <span class='replies'>" + replies.html() + " replies</span>");
+				//$(this).find(".title_pages").before("by " + author.html());
+				$(this).find(".title_pages").prepend("<div class='author'>" + author.html() +"</div>");
+				$(this).find(".author:first").after("<div class='replies'>" + replies.html() + " replies</div>");
 
 				// Merge columns into posticon field
 				posticon = $(this).find("td.icon img");
@@ -246,23 +275,9 @@ if (typeof fancySAPage == "undefined") {
 					else if (star_src == "http://fi.somethingawful.com/style/bookmarks/star2.gif")
 						$(star).attr('src', fancySAPage.getURL("/images/star2.gif"));
 
-					if (fancySAPage.layout == "compact") {
-						posticon.after(star);
-						/*star.css("position", "relative");
-						star.css("left", "-63px");
-						posticon.css("margin", "0");
-						posticon.css("position", "relative");
-						posticon.css("left", "15px");*/
-						$(this).find("td.icon").addClass("compact");
-					} else if (fancySAPage.layout == "expanded") {
-						//star.css("margin-top", "5px");
-						//star.css("margin-left", "45px");
-						//posticon.after("<br />");
-						posticon.before(star);
-						$(this).find("td.icon").addClass("expanded");
-					}
+					posticon.after(star);
 					$(this).find("td.star").remove();
-					$(this).find("td.icon").css("width", "75px");
+					//$(this).find("td.icon").css("width", "75px");
 				//}
 
 				// Ask/tell and SA-Mart icons
@@ -283,10 +298,11 @@ if (typeof fancySAPage == "undefined") {
 					else if (icon2_src == 'http://fi.somethingawful.com/forums/posticons/icon-52-trading.gif')
 						$(icon2).attr('src', fancySAPage.getURL("/images/samart-bid.gif"));
 
-					//posticon.after(icon2);
-					star.after(icon2);
+					posticon.after(icon2);
+					//star.after(icon2);
 					$(this).find("td.icon2").remove();
-					$(this).find("td.icon").css("width", "113px");
+					//$(this).find("td.icon").css("width", "113px");
+					$(this).find("td.icon").addClass("wide");
 					$(icon2).css("margin-left", "1px");
 				}
 			});
@@ -321,7 +337,7 @@ if (typeof fancySAPage == "undefined") {
 				$(".forumbar_pages:last").append($('.pages.bottom'));
 
 				// post button
-				$(".forumbar.top").append($(".postbuttons"))
+				$(".forumbar.top").append($(".postbuttons"));
 			}
 
 
@@ -384,6 +400,20 @@ if (typeof fancySAPage == "undefined") {
 				}*/
 				fancySAPage.hideHeader = !fancySAPage.hideHeader;
 				self.port.emit("toggleHideHeader", null);
+			});
+			
+			// Layout switch
+			$("#globalmenu a.layoutSwitch").click(function(e) {
+				e.preventDefault();
+				$("table#forum.threadlist").toggleClass("expanded compact");
+				if (fancySAPage.forumLayout == "compact") {
+					fancySAPage.forumLayout = "expanded";
+					$("#globalmenu a.layoutSwitch").text('switch to compact view');
+				} else if (fancySAPage.forumLayout == "expanded") {
+					fancySAPage.forumLayout = "compact";
+					$("#globalmenu a.layoutSwitch").text('switch to expanded view');
+				}
+				self.port.emit("setForumLayout", fancySAPage.forumLayout);
 			});
 			
 			// End "fancy.js" code
