@@ -254,7 +254,7 @@ if (typeof fancySAPage == "undefined") {
 					//$(this).find(".title_pages").prepend("<br />");
 					//$(this).find(".title_pages").prepend(" - ");
 				}
-				//$(this).find(".title_pages").before("by " + author.html());
+				//$(this).find(".title_pages").prepend("by " + author.html());
 				$(this).find(".title_pages").prepend("<div class='author'>" + author.html() +"</div>");
 				$(this).find(".author:first").after("<div class='replies'>" + replies.html() + " replies</div>");
 
@@ -277,7 +277,6 @@ if (typeof fancySAPage == "undefined") {
 
 					posticon.after(star);
 					$(this).find("td.star").remove();
-					//$(this).find("td.icon").css("width", "75px");
 				//}
 
 				// Ask/tell and SA-Mart icons
@@ -331,6 +330,8 @@ if (typeof fancySAPage == "undefined") {
 				$(".forumbar.top").append("<div class = 'forumbar_pages' />");
 				//$(".forumbar_pages").append($("#mp_bar .pages"));
 				$(".forumbar_pages").append($(".pages"));
+				// get rid of the extra <br>'s
+				$("table#forum").nextAll("br").remove();
 
 				// bottom
 				$(".forumbar:last").append("<div class = 'forumbar_pages' />");
@@ -362,6 +363,8 @@ if (typeof fancySAPage == "undefined") {
 				$("#forum").before("<div class = 'forumbar top' />");
 				$(".forumbar.top").append("<div class = 'forumbar_pages' />");
 				$(".forumbar_pages").append($("#mp_bar .pages"));
+				// get rid of the extra <br>'s
+				$("ul#usercpnav").nextAll("br").remove();
 
 				// bottom
 				$(".forumbar:last").append("<div class = 'forumbar_pages' />");

@@ -11,6 +11,9 @@ body {
 #container {
 	background: white;
 	background: white url('data:image/gif;base64,R0lGODlh7AMBAIABAKKiov///yH5BAEAAAEALAAAAADsAwEAAAIgDIKpy+0Po5y02ouz3rz7D4biSJbmiabqyrbuC8cydBQAOw==') repeat-y;
+	
+	border: 1px solid #000;
+	border-top: 0 !important;
 }
 
 #header.hidden {

@@ -1,3 +1,12 @@
+#globalmenu, #globalmenu a,
+#globalmenu li.first a, #globalmenu ul.right a {
+	color: #EACF4C !important;
+}
+
+#globalmenu li {
+	border-left: 1px solid #EACF4C !important;
+}
+
 #header {
     display: none;
 }
@@ -154,8 +163,8 @@ form#ac_timemachine.active {
 }
 
 /* .curpage {
-	padding-right:5px !important; */
-}
+	padding-right:5px !important;
+}*/
 div.pages a:hover {
 	background:none !important;
 	padding-right:0px !important;
@@ -167,6 +176,7 @@ div.pages a {
 }
 #globalmenu, #globalthing {
 	background-color:black !important;
+	
 	font: 13px 'Monaco', 'Lucida Sans Typewriter', 'Inconsolata', 'Consolas', 'Menlo', monospace !important;
 }
 
@@ -306,12 +316,32 @@ td.postlinks .postbuttons li a {
 	}
 }
 
+@-moz-keyframes animes {
+	0% {
+		background:#EACF4C;
+    color:#000;
+	}
+	50% {
+		background:#000;
+    color:#EACF4C;
+	}
+	100% {
+		background:#EACF4C;
+    color:#000;
+	}
+}
+
 a:hover {
   -webkit-animation-name: animes;
 	-webkit-animation-duration: 1s;
 	-webkit-animation-iteration-count: infinite;
 	-webkit-animation-direction: alternate;
 	-webkit-animation-timing-function: ease-in-out;
+	-moz-animation-name: animes;
+	-moz-animation-duration: 1s;
+	-moz-animation-iteration-count: infinite;
+	-moz-animation-direction: alternate;
+	-moz-animation-timing-function: ease-in-out;
 }
 .bginput:hover {
 	-webkit-animation-name: animes;
@@ -319,6 +349,11 @@ a:hover {
 	-webkit-animation-iteration-count: infinite;
 	-webkit-animation-direction: alternate;
 	-webkit-animation-timing-function: ease-in-out;
+	-moz-animation-name: animes;
+	-moz-animation-duration: 1s;
+	-moz-animation-iteration-count: infinite;
+	-moz-animation-direction: alternate;
+	-moz-animation-timing-function: ease-in-out;
 }
 
 /* fix to make posts with only "quote" button have same bottom bar height as ones with "edit" or i suppose "report" */
@@ -327,6 +362,7 @@ ul.postbuttons li {
 }
 ul.postbuttons a {
 	-webkit-animation-name:none;
+	-moz-animation-name:none;
 }
 
 /******/
