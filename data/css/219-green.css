@@ -176,7 +176,6 @@ div.pages a {
 }
 #globalmenu, #globalthing {
 	background-color:black !important;
-	border-bottom: 1px #57FF57 solid !important;
 	font: 13px 'Monaco', 'Lucida Sans Typewriter', 'Inconsolata', 'Consolas', 'Menlo', monospace !important;
 }
 
@@ -291,8 +290,6 @@ td.postlinks .postbuttons li a {
 	background-color:#114211 !important;
 }
 
-
-
 #thread table.post p.editedby span, #thread table.post p.attachment span {
 	color: #57FF57 !important;
 	font-size: 12px !important;
@@ -332,7 +329,7 @@ td.postlinks .postbuttons li a {
 }
 
 a:hover {
-	-webkit-animation-name: animes;
+  -webkit-animation-name: animes;
 	-webkit-animation-duration: 1s;
 	-webkit-animation-iteration-count: infinite;
 	-webkit-animation-direction: alternate;
@@ -551,11 +548,8 @@ dd.title img[src="http://fi.somethingawful.com/customtitles/tek9s-2.png"] {
     background: url('data:image/gif;base64,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') top left no-repeat;
 }
 
-
-
-
-
 ul.navigation {
+    border-top:1px #57FF57 solid;
     border-bottom:1px #57FF57 solid;
     background:#000000;
 }
@@ -568,5 +562,5 @@ ul.navigation li:nth-child(1) {
 }
 ul.navigation li:nth-child(10) {
     width: 92px;
-    border-right: 1px solid #57ff57;
+    border-right: 1px solid #57FF57;
 }

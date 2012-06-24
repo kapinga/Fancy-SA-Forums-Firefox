@@ -4,6 +4,7 @@ body {
 #globalmenu {
 	background-color: #DDE1E4 !important;
 }
+
 #content .subforum .title a, #content .subforum .title a:hover, #content .subforum .title a:visited {
 	color: #036 !important;
 }
@@ -52,24 +53,6 @@ div.mqnav a:hover {
 	text-decoration:none;
 }
 
-/* Search results */
-div#mp_bar {
-    background: #069 !important;
-    color: white !important;
-    height: 22px;
-}
-
-div#mods {
-    background: #069 !important;
-    color: white !important;
-    float: left !important;
-    padding: 0.5em 0 0.5em 0;
-}
-div#mods a {
-    background: #069 !important;
-    color: white !important;
-}
-
 #forum td.title a.pagenumber, #forum td.title a.pagenumber:visited {
 	color:#036 !important;
 }
@@ -96,15 +79,14 @@ div#mods a {
     border-bottom:1px #bbb solid;
     background:#e7eef5;
 }
-
-.navbar_wrap.bottom .navigation {
-	border-top:1px #bbb solid;
-}
-
 ul.navigation li {
     background-color:#ebebeb;
     border-left:1px #fff solid;
-    height: 20px !important;
+    height: 19px !important;
+}
+
+.navbar_wrap.bottom .navigation {
+  border-top:1px #bbb solid;
 }
 
 .navigation a, .navigation a:visited {

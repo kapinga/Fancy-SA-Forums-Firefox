@@ -1,10 +1,10 @@
 #globalmenu, #globalmenu a,
 #globalmenu li.first a, #globalmenu ul.right a {
-	color: #EACF4C !important;
+  color: #EACF4C !important;
 }
 
 #globalmenu li {
-	border-left: 1px solid #EACF4C !important;
+  border-left: 1px solid #EACF4C !important;
 }
 
 #header {
@@ -13,7 +13,7 @@
 
 body {
 	color:#EACF4C !important;
-	font: 13px 'Monaco', 'Lucida Sans Typewriter', 'Inconsolata', 'Consolas', 'Menlo', monospace !important;
+	font: 13px 'Monaco', 'Consolas', monospace !important;
 	background-color:black;
 }
 
@@ -71,12 +71,12 @@ div.breadcrumbs a.bclast {
 }
 #thread dl.userinfo, #forum td.replies, #forum td.views, #forum td.author, #subforums {
 	color:#EACF4C !important;
-	font: 12px 'Monaco', 'Lucida Sans Typewriter', 'Inconsolata', 'Consolas', 'Menlo', monospace !important;
+	font: 12px 'Monaco', 'Consolas', monospace !important;
 }
 
 #thread td.postbody {
-	font: 13px 'Monaco', 'Lucida Sans Typewriter', 'Inconsolata', 'Consolas', 'Menlo', monospace !important;
-    color:#EACF4C !important;
+	font: 13px 'Monaco', 'Consolas', monospace !important;
+  color:#EACF4C !important;
 }
 
 sup {
@@ -176,7 +176,6 @@ div.pages a {
 }
 #globalmenu, #globalthing {
 	background-color:black !important;
-	
 	font: 13px 'Monaco', 'Lucida Sans Typewriter', 'Inconsolata', 'Consolas', 'Menlo', monospace !important;
 }
 
@@ -301,7 +300,7 @@ td.postlinks .postbuttons li a {
 }
 
 /* holy moly thanks roboshit */
-@-webkit-keyframes animes {
+@-webkit-keyframes animes, @-firefox-keyframe animes {
 	0% {
 		background:#EACF4C;
     color:#000;
@@ -316,7 +315,7 @@ td.postlinks .postbuttons li a {
 	}
 }
 
-@-moz-keyframes animes {
+/*@-moz-keyframes animes {
 	0% {
 		background:#EACF4C;
     color:#000;
@@ -329,7 +328,7 @@ td.postlinks .postbuttons li a {
 		background:#EACF4C;
     color:#000;
 	}
-}
+}*/
 
 a:hover {
   -webkit-animation-name: animes;
