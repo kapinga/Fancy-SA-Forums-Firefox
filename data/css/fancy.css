@@ -272,12 +272,12 @@ Thread List
 
 
 /* Compact thread listing */
-#forum.compact td.icon {
-  width: 78px;
+#forum.compact td.icon, #forum.compact th.icon {
+  width: 78px !important;
   padding-left: 7px !important;
 }
 
-#forum.compact td.icon.wide {
+#forum.compact td.icon.wide #forum.compact th.icon.wide {
   width: 114px !important;
 }
 
@@ -345,7 +345,7 @@ a[href="#top"] {
   padding-top: 5px !important;
   padding-bottom: 5px !important;
   
-  vertical-align:middle;
+  vertical-align:middle !important;
   /* height: 32px; */
 }
 
