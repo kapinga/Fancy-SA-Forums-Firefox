@@ -91,7 +91,7 @@ fancySAHelper = {
 		$(css).after("<link rel='stylesheet' type='text/css' href='" + fancySAForums.browser.getURL("/css/fancy.css") + "' />");
 		fancySAForums.AttachCSS();
 	} else {
-		if count < 1000 {
+		if (count < 1000) {
 			window.setTimeout(function() {
 				fancySAHelper.AttachCSS(count+1);
 			}, 10);
