@@ -64,8 +64,8 @@ body {
   
   padding: 0 27px 3px 27px !important;
   
-  /*border: 1px solid #000;
-  border-top: 0 !important;*/
+  border: 1px solid #000;
+  border-top: 0 !important;
 }
 
 
@@ -277,7 +277,7 @@ Thread List
   padding-left: 7px !important;
 }
 
-#forum.compact td.icon.wide #forum.compact th.icon.wide {
+#forum.compact td.icon.wide, #forum.compact th.icon.wide {
   width: 114px !important;
 }
 
@@ -302,11 +302,11 @@ Thread List
 
 
 /* Expanded thread listing */
-#forum.expanded td.icon {
+#forum.expanded td.icon, #forum.expanded th.icon {
   width: 60px;
 }
 
-#forum.expanded td.icon.wide {
+#forum.expanded td.icon.wide, #forum.expanded th.icon.wide {
   width: 96px;
 }
 
@@ -404,7 +404,7 @@ Header
   padding: 0 !important;
   
   border-top: 2px #142C46 solid;
-  border-bottom: 2px #142C46 solid;
+  border-bottom: 1px #142C46 solid;
 }
 
 #header img {
@@ -417,12 +417,6 @@ Header
 }
 
 #header.hidden {
-  /*display:none;*/
-  height: 0;
-  border: 0 none;
-}
-
-#header.hidden * {
   display:none;
 }
 
@@ -547,8 +541,7 @@ span#bookmark_edit_attach {
 /* User Control Panel */
 
 #usercpnav li {
-    /*margin-bottom: 2em;*/
-    margin: 0em 0 13px 0;
+    margin-bottom: 2em;
     padding: 4px 0px 4px 0px !important;
     text-align: center;
 }
@@ -589,30 +582,6 @@ span#bookmark_edit_attach {
     width: 95px;
 }
 
-#usercpnav ~ table {
-  border-collapse: collapse;
-}
-
-table div#buddylist {
-  margin-right: 8px;
-}
-
-#cpmain div.standard {
-  margin-bottom: 13px;
-}
-
-#cpmain div.standard:last-of-type {
-  margin-bottom: 0;
-}
-
-#cpmain div.standard:nth-child(2) div.inner {
-  display: none;
-}
-
-#cpmain div.standard > form {
-  margin-top: 8px;
-}
-
 /* Copyright */
 #copyright {
   padding: 2em 0;
@@ -623,17 +592,3 @@ table div#buddylist {
 #copyright a {
   color: #069;
 }
-
-
-/*
- * Fixes to make the page look OK before the js runns
- */
-body > #globalmenu {
-  margin: 0 auto !important;
-}
-
-
-#content > div.pages, #content > #ac_timemachine {
-  display: none;
-}
-

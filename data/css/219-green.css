@@ -300,30 +300,29 @@ td.postlinks .postbuttons li a {
 /* holy moly thanks roboshit */
 @-webkit-keyframes animes {
 	0% {
-		background:#57ff57;
+		background:#57FF57;
     color:#000;
 	}
 	50% {
 		background:#000;
-    color:#57ff57;
+    color:#57FF57;
 	}
 	100% {
-		background:#57ff57;
+		background:#57FF57;
     color:#000;
 	}
 }
-
 @-moz-keyframes animes {
 	0% {
-		background:#57ff57;
+		background:#57FF57;
     color:#000;
 	}
 	50% {
 		background:#000;
-    color:#57ff57;
+    color:#57FF57;
 	}
 	100% {
-		background:#57ff57;
+		background:#57FF57;
     color:#000;
 	}
 }

@@ -12,13 +12,6 @@ body {
 #container {
 	background: white;
 	background: white url('data:image/gif;base64,R0lGODlh7AMBAIABAKKiov///yH5BAEAAAEALAAAAADsAwEAAAIgDIKpy+0Po5y02ouz3rz7D4biSJbmiabqyrbuC8cydBQAOw==') repeat-y;
-	
-	border: 1px solid #000;
-	border-top: 0 !important;
-}
-
-#header.hidden {
-	border-bottom: 1px solid #bbb;
 }
 
 .forumbar, .threadbar {
@@ -73,16 +66,21 @@ div.mqnav a:hover {
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAfCAMAAAARF1dQAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABtQTFRFycnJu7u7+fn58fHxwcHB5+fn3d3d09PT////zAOgWwAAAAl0Uk5T//////////8AU094EgAAAB5JREFUeNpi4GAgBTIysDAwMLAzsDGwMjAzMAEEGAAdFgDVSuMsDwAAAABJRU5ErkJggg==');
     background-repeat: repeat-x;
     background-position: bottom;
+    border-top:1px #142c46 solid;
 }
 
 .navigation {
-    border-bottom:1px #bbb solid;
+    border-bottom:1px #8eaac9 solid;
     background:#e7eef5;
 }
 ul.navigation li {
     background-color:#ebebeb;
     border-left:1px #fff solid;
     height: 19px !important;
+}
+.navigation {
+    border-bottom:1px #bbb solid;
+    background:#e7eef5;
 }
 
 .navbar_wrap.bottom .navigation {

@@ -1,26 +1,5 @@
-/* Copyright (c) 2011, Jonathon Harding, Thomas Boyt
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy 
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights 
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
- * copies of the Software, and to permit persons to whom the Software is 
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in 
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS 
- * IN THE SOFTWARE.
- */
-
-// Wrap all my code within the "fancySAForums" namespace
 var fancySAForums = {
+
   browser: {
     // the idea here is to keep fancy sa code same across
     // all browsers except for browser-specific functions
@@ -48,48 +27,9 @@ var fancySAForums = {
       fancySAForums.setOption(key, true);
   },
   
-  
-  //hideHeader: false,
-  //forumLayout: "expanded",
-  
-  /*AttachForumCSS: function() {
-    css = jQuery("link[rel=stylesheet][href^='/css/']");
-    self.port.emit("log", "css.size: " + css.size());
-    if (css.size() == 2) {
-      // We should be in a normal forum. All forums have at least
-      // main.css and bbcode.css
-      jQuery("head").append("<link rel='stylesheet' type='text/css' href='"+fancy.browser.getURL("/css/default.css")+"' />");
-    } else if (css.size() > 2) {
-      // We might be in a non-normal styled forum. Check a little more carefully
-      css219 = css.filter("[href^='/css/219.css']");
-      if (css219.size() > 0) {
-        self.port.emit("log", "219.css found");
-        // Replace broken 219.css with updated version
-        //css219.attr("href", fancy.browser.getURL("/css/219.css"));
-        // Do this by linking the new one and eventually unlinking the old. This 
-        // prevents any extra "flashes" the firefox tends to do...
-        css219.after("<link rel='stylesheet' type='text/css' href='" + fancy.browser.getURL("/css/219-amber.css") + "' />");
-        window.setTimeout(function() {css219.remove();}, 10);
-      } else {
-        cssFYAD = css.filter("[href^='/css/fyad.css']");
-        if (cssFYAD.size() > 0) {
-          cssFYAD.after("<link rel='stylesheet' type='text/css' href='"+fancy.browser.getURL("/css/fyad.css")+"' />");
-        } else if (css.filter("[href^='/css/gaschamber.css'],[href^='/css/byob.css'],[href^='/css/rfa.css']").size() == 0) {
-          // Only if none of the above matches should we load the default css
-          self.port.emit("log", "css.size > 2, but still attaching default.css");
-          jQuery("head").append("<link rel='stylesheet' type='text/css' href='"+fancy.browser.getURL("/css/default.css")+"' />");
-        }
-      }
-    } else {
-      // We probably haven't loaded everything, so wait 10ms and try again
-      self.port.emit("log", "Trying again");
-      window.setTimeout(function() {fancySAForums.AttachForumCSS()}, 10);
-    }
-  },*/
-  
-  fancify: function() {
+  AttachCSS: function() {
     var fancy = fancySAForums; // :effort: alias.
-    self.port.emit("log", "fancify started");
+
     /*
     *
     * Attach CSS
@@ -102,17 +42,13 @@ var fancySAForums = {
     css = $("link[rel=stylesheet][href^='/css/219.css']");
     if (css.size() > 0) {
       $(css).attr("href", fancy.browser.getURL("/css/219-amber.css"));
-      /*// Do this by linking the new one and eventually unlinking the old. This 
-      // prevents any extra "flashes" the firefox tends to do...
-      css.after("<link rel='stylesheet' type='text/css' href='" + fancy.browser.getURL("/css/219-amber.css") + "' />");
-      window.setTimeout(function() {css.remove();}, 10);*/
     }
 
     // FYAD
     if (css.size() === 0) {
       css = $("link[rel=stylesheet][href^='/css/fyad.css']");
       if (css.size() > 0) {
-        $(css).append("<link rel='stylesheet' type='text/css' href='" + fancy.browser.getURL("/css/fyad.css") + "' />");
+        $(css).after("<link rel='stylesheet' type='text/css' href='" + fancy.browser.getURL("/css/fyad.css") + "' />");
       }
     }
 
@@ -123,40 +59,33 @@ var fancySAForums = {
      css = $("link[rel=stylesheet][href^='/css/byob.css']");
     if (css.size() === 0) {
       css = $("link[rel=stylesheet][href^='/css/rfa.css']");
-      //RFA Fix
-      if (css.size() > 0) {
-        $("ul#navigation").css("background-image", "none");
-        $("#content").before("<div style='width:100%;text-align:center;'><img src='http://fi.somethingawful.com/rfa/rfa-header.jpg'></div>");
-       }
     }
 
-    self.port.emit("log", "css.size: " + css.size());
     if (css.size() === 0) {
-      self.port.emit("log", fancy.browser.getURL("/css/default.css"));
       $("head").append("<link rel='stylesheet' type='text/css' href='" + fancy.browser.getURL("/css/default.css") + "' />");
     }
-    /*// Still need to do this RFA fix, I guess
+  },
+  
+  fancify: function() {
+    var fancy = fancySAForums; // :effort: alias.
+	
+    // Still need to do this RFA fix, I guess
     //RFA Fix
     if ($("link[rel=stylesheet][href^='/css/rfa.css']").size() > 0) {
       $("ul#navigation").css("background-image", "none");
       $("#content").before("<div style='width:100%;text-align:center;'><img src='http://fi.somethingawful.com/rfa/rfa-header.jpg'></div>");
-    }*/
-    self.port.emit("log", "CSS attached");
+    }
 
     // Wraps the search in a container for proper styling
     if (window.location.pathname.indexOf("search") != -1) {
       $("#globalmenu, #nav_purchase, #navigation, .breadcrumbs, #content, #copyright").wrapAll("<div id='container'></div>");
     }
-    
-    self.port.emit("log", "Search wrapped");
 
     // Add frontpage style banner
     $("#container").prepend("<div id='header' class='hidden'><img id='logo_img_bluegren' src='" + fancy.browser.getURL("/images/head-logo-bluegren.png")+"' /></div>")
     if (!fancySAForums.options.hideHeader) {
       $("#header").toggleClass("hidden"); //classes are used rather than just display: toggles so that they can be overriden by subforum-specific stylesheets
     }
-    
-    self.port.emit("log", "banner added");
 
     /*
     *
@@ -168,8 +97,6 @@ var fancySAForums = {
     $("#globalmenu").append("<ul id='fancy-options' class='right'>");
     $("#globalmenu ul.right").append("<li class='first'><a class='toggle-header' href='#'>toggle header</a></li>");
 
-    self.port.emit("log", "option toggles added");
-    
     if ((window.location.pathname == "/forumdisplay.php") || (window.location.pathname == "/usercp.php" || window.location.pathname == "/bookmarkthreads.php")) {
       var text;
       if (fancySAForums.options.forumLayout == "compact") {
@@ -202,8 +129,6 @@ var fancySAForums = {
         fancy.setOption("forumLayout", "compact");
       }
     });
-    
-    self.port.emit("log", "Option event handlers added");
 
     /*
     *
@@ -314,8 +239,6 @@ var fancySAForums = {
     // Remove headers from merged columns
     $("table#forum.threadlist thead tr th.star").remove();
     $("table#forum.threadlist thead tr th.icon2").remove();
-    // The expanded icon column needs a specified header width, although the value is irrelevant
-    //$("table#forum.threadlist thead tr th.icon").css("width", "1px");
 
     var replies = $("th.replies a");
     $("th.title").append('<span class="replies" style="float:right;margin-right: 20px;"></span>');
@@ -392,7 +315,6 @@ var fancySAForums = {
   },
   
   init: function () {
-    // Call init from FancySAHelper
     fancySAHelper.init();
   }
 };
