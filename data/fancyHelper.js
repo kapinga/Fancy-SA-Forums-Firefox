@@ -57,8 +57,12 @@ fancySAHelper = {
       // When the "ready" event finally hits, start modifying the page
       jQuery("document").ready(function () {
         self.port.emit("log", "Page is ready");
-        fancySAForums.fancify();
-        self.port.emit("log", "fancify completed");
+        try {
+          fancySAForums.fancify();
+          self.port.emit("log", "fancify completed");
+        } catch (e) {
+          self.port.emit("log", "fancify error: " + e);
+        }
         if (fancySAHelper.breakTablesRegEx.test(document.location)) {
           self.port.emit("log", "Unbreaking tables...");
           fancySAHelper.UnbreakTables();
@@ -91,9 +95,17 @@ fancySAHelper = {
       css = $("link[rel=stylesheet][href='/aw/css/core.min.css']");
     }
 		// Attach a bit of CSS that makes things look good before the script finishes
-		$(css).after("<style type='text/css'> body > #globalmenu { margin: 0 auto !important; } #content > div.pages, #content > #ac_timemachine { display: none; } </style>");
+    fastCSS = document.createElement("style");
+    fastCSS.setAttribute("type", "text/css");
+    fastCSS.textContent = "body > #globalmenu { margin: 0 auto !important; } #content > div.pages, #content > #ac_timemachine { display: none; }";
+    document.head.appendChild(fastCSS);
 		// And attach the main fancy.css
-		$(css).after("<link rel='stylesheet' type='text/css' href='" + fancySAForums.browser.getURL("/css/fancy.css") + "' />");
+    fancyCSS = document.createElement("link");
+    fancyCSS.setAttribute("href", fancySAForums.browser.getURL("/css/fancy.css"));
+    fancyCSS.setAttribute("type", "text/css");
+    fancyCSS.setAttribute("rel", "stylesheet");
+    $(css).after(fancyCSS);
+    // Attempt to attach forum specific css
 		fancySAForums.AttachCSS();
 	} else {
 		if (count < 1000) {
@@ -118,37 +130,36 @@ fancySAHelper = {
     // http://stackoverflow.com/questions/3877027/jquery-callback-on-image-load-even-when-the-image-is-cached
     // http://irama.org/news/2011/06/05/cached-images-have-no-width-or-height-in-webkit-e-g-chrome-or-safari/
 
-    // Attach the css that will prevent the parent elements from expanding
-    // to fit the table-breaking images
-	$("head").append("<style type='text/css'> table.post {table-layout:fixed;} td.userinfo {min-width:-moz-min-content;} div.bbc-block {overflow-x:auto;}</style>");
+    self.port.emit("log", "Unbreak Tables started");
+    
     jQuery.expr[':'].parents = function(a,i,m){
       return jQuery(a).parents(m[3]).length < 1;
     };
 
+    // Create an off-screen image to get the dimensions from
+    var offImg = new Image();
+    
     $(".postbody img.img, .attachment img").one('load', function() {
       var img = this;
-      
+      self.port.emit("log", "Image processing started");
       setTimeout(function() {
-        $(img).attr('original-width', $(img).width());
-        $(img).attr('original-height', $(img).height());
+        // Set the off-screen image to use the current source
+        self.port.emit("log", "Image sizing starting");
+        offImg.src = $(img).attr("src");
+        self.port.emit("log", "Offscreen image re-sourced");
+        $(img).attr('original-width', offImg.width);
+        $(img).attr('original-height', offImg.height);
+        self.port.emit("log", "Image sizing completed");
         
-        //(img).css('max-width', '100%');
-        $(img).css('max-width', '-moz-available');
+        if ($(img).width() < $(img).attr('original-width')) {
+          $(img).filter(":parents(a)")
+            .after("<div style='font-size:10px; font-style:italic'>" + $(img).attr('original-width') + "x" + $(img).attr('original-height') + " image automatically resized - click for big</div>")
+            .wrap("<a href='" + $(img).attr("src") + "' target='_blank' />")
+            .css("border", "2px yellow solid");
+        }
       }, 0);
     }).each(function() {
       if(this.complete) $(this).load();
-    });
-
-    $(window).load( function () {
-      
-      $(".postbody img.img, .attachment img").each(function () {
-        if ($(this).width() < $(this).attr('original-width')) {
-          $(this).filter(":parents(a)")
-            .after("<div style='font-size:10px; font-style:italic'>" + $(this).attr('original-width') + "x" + $(this).attr('original-height') + " image automatically resized - click for big</div>")
-            .wrap("<a href='" + $(this).attr("src") + "' target='_blank' />")
-            .css("border", "2px yellow solid");
-        }
-      });
     });
   }
 }

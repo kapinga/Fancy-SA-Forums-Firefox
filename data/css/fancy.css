@@ -221,30 +221,6 @@ table#info {
   padding-right:10px !important;  
 }
 
-#forum div.author, #forum div.replies {
-  display: inline;
-  font-size: 11px;
-}
-
-#forum div.author::before {
-  content: "by ";
-}
-
-#forum div.replies::before {
-  content: " - ";
-}
-
-#forum td.title div.author a,
-#forum td.title div.replies a,
-#forum td.title div.thread_pages a {
-  font-size: 11px;
-}
-
-#forum td.title div.thread_pages {
-  font-size: 11px;
-}
-
-
 #forums .moderators {
   display:none !important;
 }
@@ -269,7 +245,28 @@ table#info {
 Thread List
 
 */
+#forum div.author, #forum div.replies {
+  display: inline;
+  font-size: 11px;
+}
 
+#forum div.author::before {
+  content: "by ";
+}
+
+#forum div.replies::before {
+  content: " - ";
+}
+
+#forum td.title div.author a,
+#forum td.title div.replies a,
+#forum td.title div.thread_pages a {
+  font-size: 11px;
+}
+
+#forum td.title div.thread_pages {
+  font-size: 11px;
+}
 
 /* Compact thread listing */
 #forum.compact td.icon, #forum.compact th.icon {
@@ -591,4 +588,10 @@ span#bookmark_edit_attach {
 
 #copyright a {
   color: #069;
+}
+
+/* Table-breaking image fix */
+table.post img.img, table.post img.timg[width] {
+  width:100%;
+  max-width:-moz-min-content;
 }
