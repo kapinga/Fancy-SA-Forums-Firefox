@@ -591,7 +591,9 @@ span#bookmark_edit_attach {
 }
 
 /* Table-breaking image fix */
-table.post img.img, table.post img.timg[width] {
+table.post img.img, 
+table.post img.timg[width],
+table.post p.attachment img {
   width:100%;
   max-width:-moz-min-content;
 }
