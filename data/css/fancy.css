@@ -523,7 +523,7 @@ textarea {
 span#bookmark_edit_attach {
     float: left !important;
     margin: 0px 0px 0px 0px !important;
-    display: inline !important;
+    display: inline;
 }
 
 /* Webkit Fixes */
