@@ -77,7 +77,7 @@ fancySAHelper = {
     if (!(fancySAHelper.adframeRegEx.test(document.location))) {
       // Request the extension's base URL, then get started
       self.port.emit("getURL", null);
-	  // And request all the options too
+	    // And request all the options too
       self.port.emit("getOptions", null);
     }
   },
@@ -85,26 +85,15 @@ fancySAHelper = {
   AttachCSS: function(count) {
 	self.port.emit("log", "AttachCSS started");
   bod = $("body#something_awful");
-	css = $("link[rel=stylesheet][href$='globalcss/globalmenu.css']");
-	if (css.size() === 0) {
-		css = $("link[rel=stylesheet][href='/aw/css/core.min.css']");
-	}
 	if (bod.size() > 0) {
     css = $("link[rel=stylesheet][href$='globalcss/globalmenu.css']");
     if (css.size() === 0) {
       css = $("link[rel=stylesheet][href='/aw/css/core.min.css']");
     }
 		// Attach a bit of CSS that makes things look good before the script finishes
-    fastCSS = document.createElement("style");
-    fastCSS.setAttribute("type", "text/css");
-    fastCSS.textContent = "body > #globalmenu { margin: 0 auto !important; } #content > div.pages, #content > #ac_timemachine { display: none; }";
-    document.head.appendChild(fastCSS);
+    $("head").append("<style type='text/css'>body > #globalmenu { margin: 0 auto !important; } #content > div.pages, #content > #ac_timemachine { display: none; }</style>");
 		// And attach the main fancy.css
-    fancyCSS = document.createElement("link");
-    fancyCSS.setAttribute("href", fancySAForums.browser.getURL("/css/fancy.css"));
-    fancyCSS.setAttribute("type", "text/css");
-    fancyCSS.setAttribute("rel", "stylesheet");
-    $(css).after(fancyCSS);
+    $(css).after($("<link />", {href: fancySAForums.browser.getURL("/css/fancy.css"), type: "text/css", rel: "stylesheet"}));
     // Attempt to attach forum specific css
 		fancySAForums.AttachCSS();
 	} else {
@@ -153,8 +142,10 @@ fancySAHelper = {
         
         if ($(img).width() < $(img).attr('original-width')) {
           $(img).filter(":parents(a)")
-            .after("<div style='font-size:10px; font-style:italic'>" + $(img).attr('original-width') + "x" + $(img).attr('original-height') + " image automatically resized - click for big</div>")
-            .wrap("<a href='" + $(img).attr("src") + "' target='_blank' />")
+            .after($("<div />", {style: "font-size:10px; font-style:italic"}).text($(img).attr('original-width') + "x" + $(img).attr('original-height') + " image automatically resized - click for big"))
+            //.after("<div style='font-size:10px; font-style:italic'></div>")
+            //.text($(img).attr('original-width') + "x" + $(img).attr('original-height') + " image automatically resized - click for big")
+            .wrap($("<a />", {href: $(img).attr("src"), target: "_blank"}))
             .css("border", "2px yellow solid");
         }
       }, 0);
