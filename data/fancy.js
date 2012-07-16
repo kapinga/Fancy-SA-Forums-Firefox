@@ -188,10 +188,8 @@ var fancySAForums = {
         $(this).find(".thread_pages").wrap("<div class='title_pages' />");
       }
 
-      $(this).find(".title_pages").prepend("<div class='author'></div>");
-      $(this).find("div.author").append(author.contents());
-      $(this).find(".author:first").after("<div class='replies'></div>");
-      $(this).find("div.replies").append(replies.contents().append(" replies"));
+      $(this).find(".title_pages").prepend($("<div class='author'></div>").append(author.contents()));
+      $(this).find(".author:first").after($("<div class='replies'></div>").append(replies.contents().append(" replies")));
 
       // Merge columns into posticon field
       var posticon = $(this).find("td.icon img");

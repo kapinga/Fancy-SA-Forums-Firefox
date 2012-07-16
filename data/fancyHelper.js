@@ -142,9 +142,7 @@ fancySAHelper = {
         
         if ($(img).width() < $(img).attr('original-width')) {
           $(img).filter(":parents(a)")
-            .after($("<div />", {style: "font-size:10px; font-style:italic"}).text($(img).attr('original-width') + "x" + $(img).attr('original-height') + " image automatically resized - click for big"))
-            //.after("<div style='font-size:10px; font-style:italic'></div>")
-            //.text($(img).attr('original-width') + "x" + $(img).attr('original-height') + " image automatically resized - click for big")
+            .after($("<div style='font-size:10px; font-style:italic'></div>").text($(img).attr('original-width') + "x" + $(img).attr('original-height') + " image automatically resized - click for big"))
             .wrap($("<a />", {href: $(img).attr("src"), target: "_blank"}))
             .css("border", "2px yellow solid");
         }
