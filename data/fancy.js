@@ -82,7 +82,7 @@ var fancySAForums = {
     }
 
     // Add frontpage style banner
-    $("container").prepend($("<div />", {id: "header"})).addClass("hidden").append($("<img />", {id: "logo_img_bluegren", src: fancy.browser.getURL("/images/head-logo-bluegren.png")}));
+    $("#container").prepend($("<div id='header' class='hidden'></div>").append($("<img />", {id: "logo_img_bluegren", src: fancy.browser.getURL("/images/head-logo-bluegren.png")})));
     if (!fancySAForums.options.hideHeader) {
       $("#header").toggleClass("hidden"); //classes are used rather than just display: toggles so that they can be overriden by subforum-specific stylesheets
     }
@@ -105,8 +105,7 @@ var fancySAForums = {
         text = 'switch to compact view';
       }
       $("#globalmenu ul.right li.first").toggleClass("first");
-      $("#globalmenu ul.right").prepend("<li class='first'><a class='toggle-forum-layout' href='#'></a></li>");
-      $("#globalmenu ul.right a.toggle-forum-layout").text(text);
+      $("#globalmenu ul.right").prepend($("<li class='first'></li>").append($("<a class='toggle-forum-layout' href='#'></a>").text(text)));
     }
 
     $("#globalmenu").insertBefore($("#container :first"));
@@ -240,7 +239,7 @@ var fancySAForums = {
     // Remove headers from merged columns
     $("table#forum.threadlist thead tr th.star").remove();
     $("table#forum.threadlist thead tr th.icon2").remove();
-
+    
     var replies = $("th.replies a");
     $("th.title").append('<span class="replies" style="float:right;margin-right: 20px;"></span>');
     $("th.title span.replies").append(replies);
