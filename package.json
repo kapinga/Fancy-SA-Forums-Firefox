@@ -3,9 +3,9 @@
     "license": "MPL 1.1/GPL 2.0/LGPL 2.1", 
     "author": "Jonathon Harding, forums user kapinga <fancySA@jrhardin.net>", 
     "description": "A port of Anal Volcano's excellent Fancy SA Forums Chrome extension", 
-    "version": "0.2.4dev", 
+    "version": "0.2.4", 
     "fullName": "Fancy SA Forums", 
     "id": "jid1-m0mwMl2WzzlyMA",
-    "url": "http://forums.somethingawful.com/showthread.php?threadid=3423378",
+    "url": "http://forums.somethingawful.com/showthread.php?threadid=3493202",
     "contributors": ["thomasboyt, forums user Anal Volcano"]
 }

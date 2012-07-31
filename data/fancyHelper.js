@@ -51,9 +51,9 @@ fancySAHelper = {
       // Once we receive the URL, define baseURL
       self.port.emit("log", "URL received");
       fancySAHelper.baseURL = url.substr(0, url.length-1);
-	  // And attach the CSS
-	  fancySAHelper.AttachCSS(0);
-	  
+    // And attach the CSS
+    fancySAHelper.AttachCSS();
+    
       // When the "ready" event finally hits, start modifying the page
       jQuery("document").ready(function () {
         self.port.emit("log", "Page is ready");
@@ -77,32 +77,38 @@ fancySAHelper = {
     if (!(fancySAHelper.adframeRegEx.test(document.location))) {
       // Request the extension's base URL, then get started
       self.port.emit("getURL", null);
-	    // And request all the options too
+      // And request all the options too
       self.port.emit("getOptions", null);
     }
   },
   
-  AttachCSS: function(count) {
-	self.port.emit("log", "AttachCSS started");
-  bod = $("body#something_awful");
-	if (bod.size() > 0) {
+  AttachCSS: function() {
+  self.port.emit("log", "AttachCSS started");
+    bod = $("body#something_awful");
+  if (bod.size() == 0) {
+    bod = $("body#awbody");
+  }
+  if (bod.size() > 0) {
     css = $("link[rel=stylesheet][href$='globalcss/globalmenu.css']");
+  
     if (css.size() === 0) {
       css = $("link[rel=stylesheet][href='/aw/css/core.min.css']");
     }
-		// Attach a bit of CSS that makes things look good before the script finishes
+    // Attach a bit of CSS that makes things look good before the script finishes
     $("head").append("<style type='text/css'>body > #globalmenu { margin: 0 auto !important; } #content > div.pages, #content > #ac_timemachine { display: none; }</style>");
-		// And attach the main fancy.css
+    // And attach the main fancy.css
+  if (css.size() > 0) {
     $(css).after($("<link />", {href: fancySAForums.browser.getURL("/css/fancy.css"), type: "text/css", rel: "stylesheet"}));
-    // Attempt to attach forum specific css
-		fancySAForums.AttachCSS();
-	} else {
-		if (count < 1000) {
-			window.setTimeout(function() {
-				fancySAHelper.AttachCSS(count+1);
-			}, 10);
-		}
-	}
+  } else {
+    $("head").append($("<link />", {href: fancySAForums.browser.getURL("/css/fancy.css"), type: "text/css", rel: "stylesheet"}));
+  }
+  // Attempt to attach forum specific css
+  fancySAForums.AttachCSS();
+  } else {
+    window.setTimeout(function() {
+      fancySAHelper.AttachCSS();
+    }, 50);
+  }
   },
 
   // For pages that might contain table-breaking images, this function will

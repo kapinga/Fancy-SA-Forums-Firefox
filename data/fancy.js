@@ -79,6 +79,8 @@ var fancySAForums = {
     // Wraps the search in a container for proper styling
     if (window.location.pathname.indexOf("search") != -1) {
       $("#globalmenu, #nav_purchase, #navigation, .breadcrumbs, #content, #copyright").wrapAll("<div id='container'></div>");
+      // Search page also doesn't have the updated navigation bar class
+      $("#navigation").addClass("navigation");
     }
 
     // Add frontpage style banner
@@ -147,7 +149,7 @@ var fancySAForums = {
     // Fix forum navbar
     $("ul.navigation").wrap("<div class='navbar_wrap'>");
     $("div.navbar_wrap").filter(":first").addClass("top");
-    $("div.navbar_wrap").filter(":last").addClass("bottom");
+    $("div.navbar_wrap").filter(":not(:first)").filter(":last").addClass("bottom");
     $("ul.navigation li").each(function(i, el) {
       var link = $(el).find("a");
       if ($(link).attr('href').substr(1, 25) == 'account.php?action=logout')
