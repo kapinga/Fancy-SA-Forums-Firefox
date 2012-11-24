@@ -75,6 +75,9 @@ var fancySAForums = {
       $("ul#navigation").css("background-image", "none");
       $("#content").before("<div style='width:100%;text-align:center;'><img src='http://fi.somethingawful.com/rfa/rfa-header.jpg'></div>");
     }
+    
+    // Remove the SALR CSS for "removeHeaderandFooter.css"
+    $("link[rel=stylesheet]").remove("[href$='removeHeaderAndFooter.css']");
 
     // Wraps the search in a container for proper styling
     if (window.location.pathname.indexOf("search") != -1) {
@@ -158,7 +161,13 @@ var fancySAForums = {
         $(this).attr("class", "login");
         $(link).html('Log In');
       }
-      $(this).empty().append(link);
+      // Remove the cell for SALR Options, since it breaks the CSS layout
+      if (($(link).attr('href') == '#') && ($(link).text() == 'Configure SALR')) {
+        $(this).remove();
+      } else {
+        // For everything else, just remove everything but the link
+        $(this).empty().append(link);
+      }
     });
 
     // Move the copyright outside #container
@@ -246,6 +255,9 @@ var fancySAForums = {
     $("th.title").append('<span class="replies" style="float:right;margin-right: 20px;"></span>');
     $("th.title span.replies").append(replies);
     $("th.title span.replies a:first").empty().html("Replies");
+    
+    // Correctly format quickpost/new post buttons:
+    $("img[src$='quickbutton.gif']").css('padding', '0');
 
     /*
 
