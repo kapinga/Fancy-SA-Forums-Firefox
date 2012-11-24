@@ -314,20 +314,6 @@ td.postlinks .postbuttons li a {
     color:#000;
 	}
 }
-@-moz-keyframes animes {
-	0% {
-		background:#EACF4C;
-    color:#000;
-	}
-	50% {
-		background:#000;
-    color:#EACF4C;
-	}
-	100% {
-		background:#EACF4C;
-    color:#000;
-	}
-}
 @keyframes animes {
 	0% {
 		background:#EACF4C;
@@ -349,11 +335,6 @@ a:hover {
 	-webkit-animation-iteration-count: infinite;
 	-webkit-animation-direction: alternate;
 	-webkit-animation-timing-function: ease-in-out;
-	-moz-animation-name: animes;
-	-moz-animation-duration: 1s;
-	-moz-animation-iteration-count: infinite;
-	-moz-animation-direction: alternate;
-	-moz-animation-timing-function: ease-in-out;
 	animation-name: animes;
 	animation-duration: 1s;
 	animation-iteration-count: infinite;
@@ -366,11 +347,6 @@ a:hover {
 	-webkit-animation-iteration-count: infinite;
 	-webkit-animation-direction: alternate;
 	-webkit-animation-timing-function: ease-in-out;
-	-moz-animation-name: animes;
-	-moz-animation-duration: 1s;
-	-moz-animation-iteration-count: infinite;
-	-moz-animation-direction: alternate;
-	-moz-animation-timing-function: ease-in-out;
 	animation-name: animes;
 	animation-duration: 1s;
 	animation-iteration-count: infinite;
