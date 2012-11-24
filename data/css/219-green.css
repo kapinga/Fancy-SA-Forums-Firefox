@@ -326,6 +326,20 @@ td.postlinks .postbuttons li a {
     color:#000;
 	}
 }
+@keyframes animes {
+	0% {
+		background:#57FF57;
+    color:#000;
+	}
+	50% {
+		background:#000;
+    color:#57FF57;
+	}
+	100% {
+		background:#57FF57;
+    color:#000;
+	}
+}
 
 a:hover {
   -webkit-animation-name: animes;
@@ -338,6 +352,11 @@ a:hover {
 	-moz-animation-iteration-count: infinite;
 	-moz-animation-direction: alternate;
 	-moz-animation-timing-function: ease-in-out;
+	animation-name: animes;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+	animation-timing-function: ease-in-out;
 }
 .bginput:hover {
 	-webkit-animation-name: animes;
@@ -350,6 +369,11 @@ a:hover {
 	-moz-animation-iteration-count: infinite;
 	-moz-animation-direction: alternate;
 	-moz-animation-timing-function: ease-in-out;
+	animation-name: animes;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+	animation-timing-function: ease-in-out;
 }
 
 /* fix to make posts with only "quote" button have same bottom bar height as ones with "edit" or i suppose "report" */
