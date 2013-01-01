@@ -1,0 +1,13 @@
+#globalmenu, #globalthing {
+background-color:#7f7f7f;
+font-weight:bold;
+font-size:11px;
+font-family:'Arial',sans-serif;
+text-align:center;
+width:100%;
+}
+#globalmenu ul { list-style:none; margin:0; padding:.3em 0; position:relative; z-index:1; }
+#globalmenu a { color:#fff; text-decoration:none; }
+#globalmenu a:hover { text-decoration:underline; }
+#globalmenu li { border-left:1px solid #bbb; display:inline; margin:0; padding:0 0.7em; }
+#globalmenu li.first { border-left:none; } 
