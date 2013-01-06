@@ -1,3 +1,10 @@
+* {
+  border-radius: 0 0 0 0 !important;
+  box-shadow: none !important;
+  font-family: 'Monaco', 'Lucida Sans Typewriter', 'Inconsolata', 'Consolas', 'Menlo', monospace !important;
+  text-shadow: none !important;
+}
+
 #globalmenu, #globalmenu a,
 #globalmenu li.first a, #globalmenu ul.right a {
   color: #EACF4C !important;
@@ -96,6 +103,10 @@ sup {
 div.threadbar, #subforums, #subforums td, #forum, #forum th, #forum td, #filter, div.forumbar, #thread table.post, #thread td, #forums, #forums th, #forums td, #pm, #pm th, #pm td, #info, #info th, #info td {
 	border:1px solid #EACF4C !important;
 }
+#filter {
+  border: 2px solid #EACF4C !important;
+  border-bottom: 0 solid #EACF4C !important;
+}
 .author.op {
 	color:#EACF4C !important;
 
@@ -119,12 +130,12 @@ div.breadcrumbs {
 }
 
 form#ac_timemachine {
-	position:absolute;
-	float:left;
+/* 	position:absolute;
+	float:left;*/
 	border: 0 !important;
 	background: #000 url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAMESURBVDjLXZNrSFNxGMYPgQQRfYv6EgR9kCgKohtFgRAVQUHQh24GQReqhViWlVYbZJlZmZmombfVpJXTdHa3reM8uszmWpqnmQuX5drmLsdjenR7ev9DR3Xgd3h43+d5/pw/HA4AN9zITSPUhJ14R0xn87+h2ZzJvZVInJpzAQOXQOQMt+/5rvhMCLXv9Vjrt1rSXitmwj+Jua1+Ox+2HfGNdGf6yW8l5sUKPNVcRsiaPDA22Ahv6/7Ae/0aKdviQ0G7B/c6f8Zg+gbfh079Mjno0MhS58lflOsgEjh3BXc+bM/0DzbvDwj314znt/bjof0HdPw3FBq6kP+oCxVNfdDZvqPsrQmf6zdFRtyPJgbrFoqUTeS+FnPrekpmiC2lS+QcUx+qrf0wmFzodYfgC0nwhoYh9oegfdmLsmYXHj7JhV23erS7ZNYHyibGLiLtXsO19BoHSiwu6Ok09gwFg/gy8BO/STOkKFBk7EWh2YkLeh5Hy4Ws2B2w157iDvOpxw4UPRPRTSfL41FIsow7ZeXwUFF4dBQ1L96A/xLEFf1HMC/LxAt25PH+VN0HXH1gh2dEwdBoBGO0OKvW4L7hCdIvavBSsMIRVHCi0ArmZZl4wbYrz/yHSq1Ql9vQLylUEoE7GMal3OuxMG/7CO848N6n4HheK5iXZeIFmy88Nu+8aYJG24G3ziB+0Ee7wwqemlvQ5w9hcAJwyUDtpwBOFLeBeVkmXpB0qlK9RV2HlLsCsvUivHRhQwoQjhCkA1TgJX1OK0JVzIN5WSZesPZ44XKia+P5BqSS4aq+BzZXABLdhyQrsJPOqv4MVcEbMA/zsky8gLHyYO7hI9laecOZWuzLfYXU2zzSblmQerMZqjwTknOeY9dlIw5kVcrMG/8XpoQgCEkOhwNNJn5i7bFSrFDpsCrFEIPpLacr0WxpibYIQpS86/8pMBqNswnJ6XSivqHBv3R3pmbxzgwz4Z+EaTXtwqIogrzjxIJ4QVVV1UyihxgjFv3/K09Bu/lEkBgg5rLZH+fT5dvfn7iFAAAAAElFTkSuQmCC') no-repeat !important;
 	background-position: 3px 2px !important;
-    width: 425px !important;
+    width: 425px !important; 
 }
 
 form#ac_timemachine.active {
@@ -157,15 +168,37 @@ form#ac_timemachine.active {
 }
 
 /* Page links */
-.pages a, .pages .curpage {
+div.pages a, div.pages span.disabled {
+  font-size: 13px !important;
+  height: 19px !important;
+}
+
+div.pages a, .pages select {
+  color: #EACF4C !important;
+  border: 1px #EACF4C solid !important;
+}
+
+div.pages select {
+  position: relative;
+  top: 1px;
+  margin: 0 2px !important;
+}
+
+.pages span.disabled {
+  color: #A08C35 !important;
+  border: 1px #A08C35 solid !important;
+}
+
+
+/*.pages a, .pages .curpage {
 	margin-right:0px !important;
 	color: #EACF4C !important;
-}
+}*/
 
 /* .curpage {
 	padding-right:5px !important;
 }*/
-div.pages a:hover {
+/*div.pages a:hover {
 	background:none !important;
 	padding-right:0px !important;
 	margin-right: 0px;
@@ -173,7 +206,7 @@ div.pages a:hover {
 div.pages a {
 	border-bottom:none !important;
 	text-decoration:underline !important;
-}
+}*/
 #globalmenu, #globalthing {
 	background-color:black !important;
 	font: 13px 'Monaco', 'Lucida Sans Typewriter', 'Inconsolata', 'Consolas', 'Menlo', monospace !important;
@@ -275,6 +308,7 @@ ul.postbuttons img {
 
 #ac_timemachine select, #ac_timemachine input {
 	margin-top:-1px !important;
+  border: 1px #EACF4C solid !important;
 }
 
 td.postlinks .postbuttons li a {
@@ -329,7 +363,7 @@ td.postlinks .postbuttons li a {
 	}
 }
 
-a:hover {
+a:hover, div.pages a:hover {
   -webkit-animation-name: animes;
 	-webkit-animation-duration: 1s;
 	-webkit-animation-iteration-count: infinite;
@@ -555,13 +589,21 @@ dd.title img[src="http://fi.somethingawful.com/customtitles/tek9s-2.png"] {
 
 ul.navigation {
     margin-top:4px;
-    border-top:1px #EACF4C solid;
-    border-bottom:1px #EACF4C solid;
+    border-top:1px #EACF4C solid !important;
+    border-bottom:1px #EACF4C solid !important;
+    border-left: 0 #000 solid !important;
+    border-right: 0 #000 solid !important;
     background:#000000;
+    height: 24px;
 }
 ul.navigation li {
     background-color:#000000;
     border-left:1px #EACF4C solid;
+    height: 24px;
+}
+ul.navigation li a {
+    height: 24px;
+    padding: 0;
 }
 ul.navigation li:nth-child(1) {
     width: 108px !important;
@@ -569,4 +611,22 @@ ul.navigation li:nth-child(1) {
 ul.navigation li:nth-child(10) {
     width: 92px !important;
     border-right: 1px solid #EACF4C;
+}
+
+div.breadcrumbs a.up span {
+  background: none repeat scroll 0 0 rgba(0,0,0,0.9) !important;
+  border:1px #EACF4C solid !important;
+}
+
+#filter,
+#forum td,
+div.pages a,
+div.pages span.disabled,
+#forum th a {
+  background-color: #000 !important;
+  background-image: none !important;
+}
+
+#filter div.toggle_tags {
+  color: #A08C35 !important;
 }

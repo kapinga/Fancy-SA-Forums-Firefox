@@ -51,8 +51,8 @@ fancySAHelper = {
       // Once we receive the URL, define baseURL
       self.port.emit("log", "URL received");
       fancySAHelper.baseURL = url.substr(0, url.length-1);
-    // And attach the CSS
-    fancySAHelper.AttachCSS();
+      // And attach the CSS
+      fancySAHelper.AttachCSS();
     
       // When the "ready" event finally hits, start modifying the page
       jQuery("document").ready(function () {
@@ -95,7 +95,7 @@ fancySAHelper = {
       css = $("link[rel=stylesheet][href='/aw/css/core.min.css']");
     }
     // Attach a bit of CSS that makes things look good before the script finishes
-    $("head").append("<style type='text/css'>body > #globalmenu { margin: 0 auto !important; } #content > div.pages, #content > #ac_timemachine { display: none; }</style>");
+    $("head").append("<style type='text/css'>body > #globalmenu { margin: 0 auto !important; }</style>");
     // And attach the main fancy.css
   if (css.size() > 0) {
     $(css).after($("<link />", {href: fancySAForums.browser.getURL("/css/fancy.css"), type: "text/css", rel: "stylesheet"}));
