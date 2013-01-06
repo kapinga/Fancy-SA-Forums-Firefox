@@ -206,21 +206,21 @@ var fancySAForums = {
       posticon.addClass("posticon");
 
       // bookmark star
-      var star = $(this).find("td.star img");
-      star.addClass("star");
+      // var star = $(this).find("td.star img");
+      // star.addClass("star");
       
-      var star_src = $(star).attr('src');
-      if (star_src == "http://fi.somethingawful.com/style/bookmarks/star-off.gif")
-        $(star).attr('src', fancy.browser.getURL("/images/star-off.gif"));
-      else if (star_src == "http://fi.somethingawful.com/style/bookmarks/star0.gif")
-        $(star).attr('src', fancy.browser.getURL("/images/star0.gif"));
-      else if (star_src == "http://fi.somethingawful.com/style/bookmarks/star1.gif")
-        $(star).attr('src', fancy.browser.getURL("/images/star1.gif"));
-      else if (star_src == "http://fi.somethingawful.com/style/bookmarks/star2.gif")
-        $(star).attr('src', fancy.browser.getURL("/images/star2.gif"));
+      // var star_src = $(star).attr('src');
+      // if (star_src == "http://fi.somethingawful.com/style/bookmarks/star-off.gif")
+        // $(star).attr('src', fancy.browser.getURL("/images/star-off.gif"));
+      // else if (star_src == "http://fi.somethingawful.com/style/bookmarks/star0.gif")
+        // $(star).attr('src', fancy.browser.getURL("/images/star0.gif"));
+      // else if (star_src == "http://fi.somethingawful.com/style/bookmarks/star1.gif")
+        // $(star).attr('src', fancy.browser.getURL("/images/star1.gif"));
+      // else if (star_src == "http://fi.somethingawful.com/style/bookmarks/star2.gif")
+        // $(star).attr('src', fancy.browser.getURL("/images/star2.gif"));
 
-      posticon.after(star);
-      $(this).find("td.star").remove();
+      // posticon.after(star);
+      // $(this).find("td.star").remove();
 
       // Ask/tell and SA-Mart icons
       icon2 = $(this).find("td.icon2 img");
@@ -248,7 +248,7 @@ var fancySAForums = {
     });
 
     // Remove headers from merged columns
-    $("table#forum.threadlist thead tr th.star").remove();
+    //$("table#forum.threadlist thead tr th.star").remove();
     $("table#forum.threadlist thead tr th.icon2").remove();
     
     var replies = $("th.replies a");
