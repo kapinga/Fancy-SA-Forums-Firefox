@@ -283,11 +283,20 @@ Thread List
   min-height: 0px !important;
 }
 
-#forum td.icon, #forum th.icon {
-  width: 60px !important;
+table#forum tbody tr.thread td.star, #forum tr th.star {
+  /*padding-right: 0 !important;
+  width: 10px !important;*/
 }
 
-#forum td.icon.wide, #forum th.icon.wide {
+#forum tr.thread td.icon, #forum tr th.icon, #forum tr.thread.seen td.icon,
+#cpmain #forum tr.thread td.icon, #cpmain #forum tr th.icon {
+  width: 54px !important;
+  padding-left: 0 !important;
+  padding-right: 8px !important;
+}
+
+#forum tr.thread td.icon.wide, #forum tr th.icon.wide, 
+#forum tr.thread.seen td.icon.wide.seen {
   width: 96px !important;
 }
 
