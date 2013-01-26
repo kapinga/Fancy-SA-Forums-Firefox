@@ -248,7 +248,7 @@ var fancySAForums = {
     });
 
     // Remove headers from merged columns
-    //$("table#forum.threadlist thead tr th.star").remove();
+    // $("table#forum.threadlist thead tr th.star").remove();
     $("table#forum.threadlist thead tr th.icon2").remove();
     
     var replies = $("th.replies a");
@@ -303,8 +303,8 @@ var fancySAForums = {
 
     // if (window.location.pathname == "/usercp.php" || window.location.pathname == "/bookmarkthreads.php") {
         // // top
-      // $("#forum").before("<div class = 'forumbar top' />");
-      // $(".forumbar.top").append("<div class = 'forumbar_pages' />");
+        // $("#forum").before("<div class = 'forumbar top' />");
+        // $(".forumbar.top").append("<div class = 'forumbar_pages' />");
         // $(".forumbar_pages").append($("#mp_bar .pages"));
         // $("ul#usercpnav").nextAll("br").remove();
 
@@ -330,7 +330,7 @@ var fancySAForums = {
     // $("ul#usercpnav li a[href$='userlist=buddy']").html("Buddy List");
     // $("ul#usercpnav li a[href$='userlist=ignore']").html("Ignore List");
   },
-  
+
   init: function () {
     fancySAHelper.init();
   }
